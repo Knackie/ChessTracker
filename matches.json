@@ -1,10 +1,10 @@
- {
+ { 
     "white": {
       "name": "Aurélien"
     },
     "black": {
       "name": "Mathieu"
     },
-    "winner": "reds"
-  }
+    "winner": "",
+    "_comment": "03/10"
 }

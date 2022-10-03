@@ -12,7 +12,8 @@
     fetch("matches.json")
   .then(response => response.json())
   .then(data => {
-      document.querySelector("#debug").innerText = data.matches[0].white.name
+      //document.querySelector("#debug").innerText = data.matches[0].white.name
+      document.querySelector("#debug").innerText = data.matches[0].[data.matches[0].winner].name
       console.log(data)
     });
     </script>

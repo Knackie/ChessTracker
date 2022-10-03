@@ -9,7 +9,7 @@
     <h1> Historique des parties </h1>
     <div id="debug"></div>
     <script>
-      const json = fetch(employees.json);
+      const json = fetch("employees.json");
       const obj = JSON.parse(json);
       console.log(obj.employees[0].firstName);
       fetch("matches.json")

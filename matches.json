@@ -7,4 +7,14 @@
     },
     "winner": "white",
     "_comment": "03/10, Défense scandinave"
+},
+{ 
+    "black": {
+      "name": "Aurélien"
+    },
+    "white": {
+      "name": "Mathieu"
+    },
+    "winner": "black",
+    "_comment": "03/10, Ruy Lopez"
 }

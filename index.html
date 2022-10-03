@@ -13,6 +13,14 @@
   .then(response => response.json())
   .then(data => {
       //document.querySelector("#debug").innerText = data.matches[0].white.name
+      var str = 0;
+      for (let i = 0; i < Object.keys(data.matches).length; i++) {
+       if (data.matches[0][data.matches[0].winner].name == "Aurélien")
+       {
+        str++; 
+       }
+      }
+      console.log(str)
       document.querySelector("#debug").innerText = data.matches[0][data.matches[0].winner].name
       console.log(data)
     });

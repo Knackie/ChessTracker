@@ -7,4 +7,14 @@
   </head>
   <body>
     <h1> Historique des parties </h1>
+    <div id="debug"></div>
+    <script>
+      fetch("matches.json")
+        .then(response => response.json())
+        .then(data => {
+          console.log(data.white)
+          document.querySelector("#debug").innerText = data.sentence
+      })
+    </script>
   </body>
+</html>

@@ -9,6 +9,9 @@
     <h1> Historique des parties </h1>
     <div id="debug"></div>
     <script>
+      const json = fetch("https://raw.githubusercontent.com/Knackie/ChessTracker/main/matches.json");
+      const obj = JSON.parse(json);
+      console.log(obj.matches[0].white);
       fetch("matches.json")
         .then(response => response.json())
         .then(data => {

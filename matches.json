@@ -1,6 +1,1 @@
-{"matches":[
-  { "white":{ "name": "Aurelien" },
-  "black": { "name": "Mathieu"  }//,
-  //"winner": "white",
-   // "_comment": "03/10, Defense scandinave"}
-]}
+{"employees":[{"result":true, "count":42}, {"result":true, "count":442}]}

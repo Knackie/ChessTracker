@@ -9,14 +9,14 @@
     <h1> Historique des parties </h1>
     <div id="debug"></div>
     <script>
-      const json = fetch("https://raw.githubusercontent.com/Knackie/ChessTracker/main/matches.json");
+      const json = fetch("https://raw.githubusercontent.com/Knackie/ChessTracker/main/employees.json");
       const obj = JSON.parse(json);
       console.log(obj.matches[0].white);
       fetch("matches.json")
         .then(response => response.json())
         .then(data => {
           console.log(data.white)
-          document.querySelector("#debug").innerText = data.matches[0].winner
+          document.querySelector("#debug").innerText = data.employees[0]
       })
     </script>
   </body>

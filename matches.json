@@ -1,6 +1,6 @@
 {"matches":[
   { "white":{ "name": "Aurelien" },
-  "black": { "name": "Mathieu"  },
-  "winner": "white",
-    "_comment": "03/10, Defense scandinave"}
+  "black": { "name": "Mathieu"  }//,
+  //"winner": "white",
+   // "_comment": "03/10, Defense scandinave"}
 ]}

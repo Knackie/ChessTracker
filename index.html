@@ -16,42 +16,91 @@
     <a href="https://github.com/Knackie/ChessTracker" class="w3-bar-item w3-button">Github</a>
   </div>
 
-  <h1> Classement </h1>
-  <div id="debug"></div>
+  
+  <div id="Classement" class="classement">
+    <h1> Classement </h1>
+    <div id="First" class="shadow"> 🥇 </div> 
+    <div id="Second" class="shadow"> 🥈 </div>
+    <div id="Third" class="shadow"> 🥉 </div>
+  </div>
+  <div id="space" class="space"></div>
   <script>
+    
     var player;
     fetch("https://raw.githubusercontent.com/Knackie/ChessTracker/main/players.json")
           .then(response => response.json())
           .then(p => {
             player = p;
-            console.log(player)
+            console.log(player)  
           });
-          
+   
     fetch("https://raw.githubusercontent.com/Knackie/ChessTracker/main/matches.json")
       .then(response => response.json())
       .then(data => {
-        //document.querySelector("#debug").innerText = data.matches[0].white.name
-        var str = 0;
-        var win = Array(player.length);
+        
+        var winned = 0;
+        var played = 0;
+        const gamesWinned = new Map();
+        const gamesPlayed = new Map();
+        var win = Array(Object.keys(player.players).length);
         console.log(win.length)
-            for (let y = 0; y < player.length; y++) {
+            for (let y = 0; y < Object.keys(player.players).length; y++) 
+            {
               win.push(0);
-              for (let i = 0; i < Object.keys(data.matches).length; i++) {
-                if (data.matches[0][data.matches[0].winner].name == player) 
+              for (let i = 0; i < Object.keys(data.matches).length; i++) 
+              {
+                if (data.matches[i][data.matches[i].winner].name == player.players[y].name) 
                 {
-                  str++;
+                  winned++;
                 }
+                played++;
               }
+              gamesWinned.set(player.players[y].name, winned);
+              gamesPlayed.set(player.players[y].name, played);
+              winned = 0;
+              played = 0;
+              console.log(gamesWinned);
             }
-            console.log(str)
-            //document.querySelector("#debug").innerText = data.matches[0][data.matches[0].winner].name
+            for (let i = 0; i < Object.keys(data.matches).length; i++) 
+            {
+              var affichageWin = "Victoire de "
+              affichageWin += data.matches[i][data.matches[i].winner].name
+              
+              if (data.matches[i].winner == "white")
+              {              
+                affichageWin += " avec les blancs contre "
+                affichageWin += data.matches[i].black.name
+              }
+              else
+              {
+                affichageWin += " avec les noirs contre "
+                affichageWin += data.matches[i].white.name
+
+              }
+              document.querySelector("#HistoFirst" + i).innerText = affichageWin
+            }
+
+            max = 0
+            const sortedAsc = new Map([...gamesWinned].sort());
+            console.log(sortedAsc)
+            
+              first = [...gamesPlayed][0];
+              const [firstKey] = sortedAsc.keys()
+              document.querySelector("#First").innerText += firstKey;
+              document.querySelector("#Second").innerText += Array.from(sortedAsc.keys())[1];
+              document.querySelector("#Third").innerText += Array.from(sortedAsc.keys())[2];
             console.log(data)
           });
         
 
 
   </script>
-  <h1> Historique </h1>
+  
+  <div id="Historique" class="classement">
+    <h1> Historique </h1>
+    <div id="HistoFirst0" class="shadow">  </div> 
+    <div id="HistoFirst1" class="shadow">  </div> 
+  </div>
 </body>
 
 </html>

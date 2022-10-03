@@ -9,9 +9,9 @@
     <h1> Historique des parties </h1>
     <div id="debug"></div>
     <script>
-    $.getJSON("employees.json", function(json) {
-    console.log(json); // this will show the info it in firebug console
-    });
+    fetch("employees.json")
+  .then(response => response.json())
+  .then(json => console.log(json));
     </script>
   </body>
 </html>

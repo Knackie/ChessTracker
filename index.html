@@ -11,7 +11,7 @@
     <script>
       const json = fetch("https://raw.githubusercontent.com/Knackie/ChessTracker/main/employees.json");
       const obj = JSON.parse(json);
-      console.log(obj.matches[0].white);
+      console.log(obj.employees[0].firstName);
       fetch("matches.json")
         .then(response => response.json())
         .then(data => {

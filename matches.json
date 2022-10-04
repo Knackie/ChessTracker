@@ -10,5 +10,11 @@
     "white": { "name": "Mathieu"  },
     "winner": "black",
     "_comment": "03/10, Ruy Lopez"
+ },
+ { 
+    "white": { "name": "Mathieu" },
+    "black": { "name": "Lorrys"  },
+    "winner": "white",
+    "_comment": "03/10, scandinave"
  }
 ]}

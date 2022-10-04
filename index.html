@@ -77,6 +77,8 @@
                   affichageWin += data.matches[i].white.name
 
                 }
+                  affichageWin += " le "
+                  affichageWin += data.matches[i]._comment
                 document.querySelector("#HistoFirst" + i).innerText = affichageWin
               }
 
@@ -88,6 +90,7 @@
                 const [firstKey] = sortedAsc.keys()
                 document.querySelector("#First").innerText += firstKey;
                 document.querySelector("#Second").innerText += Array.from(sortedAsc.keys())[1];
+                //document.querySelector("#Second").innerText += Array.from(sortedAsc.keys())[1];
                 document.querySelector("#Third").innerText += Array.from(sortedAsc.keys())[2];
               console.log(data)
             });

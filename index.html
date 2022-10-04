@@ -94,9 +94,9 @@
 		document.querySelector("#First").innerText += pourcent;
 		document.querySelector("#First").innerText += " % ";
                 document.querySelector("#Second").innerText += Array.from(sortedAsc.keys())[1];
-	      	if (gamesWinned.get(Array.from(sortedAsc.keys())[2]) != 0)
+	      	if (gamesWinned.get(Array.from(sortedAsc.keys())[1]) != 0)
                 { 
-	      		pourcent = gamesPlayed.get(firstKey) / gamesWinned.get(Array.from(sortedAsc.keys())[2]) * 100;
+	      		pourcent = gamesPlayed.get(firstKey) / gamesWinned.get(Array.from(sortedAsc.keys())[1]) * 100;
       		}
 	      	else
 	      	{
@@ -129,4 +129,4 @@
   </div>
 </body>
 
-</html>
+<!-- </html> -->

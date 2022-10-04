@@ -89,13 +89,13 @@
                 first = [...gamesPlayed][0];
                 const [firstKey] = sortedAsc.keys()
                 document.querySelector("#First").innerText += firstKey; 
-		var pourcent = gamesPlayed.get(firstKey) / gamesWinned.get(firstKey) * 100;
+		var pourcent = gamesWinned.get(firstKey) / gamesPlayed.get(firstKey)  * 100;
 		var pourcentString = " avec " + pourcent + " % ";
 		document.querySelector("#First").innerText += pourcentString;
                 document.querySelector("#Second").innerText += Array.from(sortedAsc.keys())[1];
 	      	if (gamesWinned.get(Array.from(sortedAsc.keys())[1]) != 0)
                 { 
-	      		pourcent = gamesPlayed.get(firstKey) / gamesWinned.get(Array.from(sortedAsc.keys())[1]) * 100;
+	      		pourcent = gamesWinned.get(Array.from(sortedAsc.keys())[1]) / gamesPlayed.get(firstKey) * 100;
       		}
 	      	else
 	      	{
@@ -106,7 +106,7 @@
               document.querySelector("#Third").innerText += Array.from(sortedAsc.keys())[2];
 	     	if (gamesWinned.get(Array.from(sortedAsc.keys())[2]) != 0)
                 { 
-	      		pourcent = gamesPlayed.get(firstKey) / gamesWinned.get(Array.from(sortedAsc.keys())[2]) * 100;
+	      		pourcent = gamesWinned.get(Array.from(sortedAsc.keys())[2]) / gamesPlayed.get(firstKey)  * 100;
       		}
 	      	else
 	      	{

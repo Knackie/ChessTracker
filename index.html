@@ -1,158 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>♟️ Chess Tracker</title>
+  </head>
 
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
-<title>♟️Chess Tracker</title>
-</head>
+  <body>
+    <div class="w3-bar w3-green">
+      <a href="/ChessTracker" class="w3-bar-item w3-button">Accueil</a>
+      <a href="classement" class="w3-bar-item w3-button">Classement</a>
+      <a href="historique" class="w3-bar-item w3-button">Historique</a>
+      <a
+        href="https://github.com/Knackie/ChessTracker"
+        class="w3-bar-item w3-button"
+        >Github</a
+      >
+    </div>
 
-<body>
-<div class="w3-bar w3-green">
-<a href="/ChessTracker" class="w3-bar-item w3-button">Accueil</a>
-<a href="classement" class="w3-bar-item w3-button">Classement</a>
-<a href="historique" class="w3-bar-item w3-button">Historique</a>
-<a href="https://github.com/Knackie/ChessTracker" class="w3-bar-item w3-button">Github</a>
-</div>
+    <div id="Classement" class="classement">
+      <h1>Classement</h1>
+      <div id="First" class="shadow">🥇</div>
+      <div id="Second" class="shadow">🥈</div>
+      <div id="Third" class="shadow">🥉</div>
+      <a href="classement">Voir le classement complet</a>
+    </div>
+    <div id="space" class="space"></div>
+    <script src="core/index.js"></script>
 
-
-<div id="Classement" class="classement">
-<h1> Classement </h1>
-<div id="First" class="shadow"> 🥇 </div> 
-<div id="Second" class="shadow"> 🥈 </div>
-<div id="Third" class="shadow"> 🥉 </div>
-<a href="classement" >Voir le classement complet</a>
-</div>
-<div id="space" class="space"></div>
-<script>
-
-function getByValue(map, searchValue) {
-	for (let [key, value] of map.entries()) {
-		if (value === searchValue)
-			return key;
-	}
-}
-var player;
-fetch("https://raw.githubusercontent.com/Knackie/ChessTracker/main/players.json")
-.then(response => response.json())
-	.then(p => {
-			player = p;
-			console.log(player)  
-
-
-			fetch("https://raw.githubusercontent.com/Knackie/ChessTracker/main/matches.json")
-			.then(response => response.json())
-			.then(data => {
-
-					var won = 0;
-					var played = 0;
-					var draw = 0;
-					const gamesWon = new Map();
-					const gamesPlayed = new Map();
-					for (let y = 0; y < Object.keys(player.players).length; y++) 
-					{
-						console.log((player.players[y].name));
-						for (let i = 0; i < Object.keys(data.matches).length; i++) 
-						{
-							if (data.matches[i].white.name == player.players[y].name || data.matches[i].black.name == player.players[y].name)
-							{
-								played++;
-							
-								if (data.matches[i].winner == "Draw")
-								{
-									draw++;
-								}
-								else if ([data.matches[i].winner] != "Draw")
-								{
-									if(data.matches[i][data.matches[i].winner].name == player.players[y].name) 
-									{
-										won++;
-									}
-								}
-							}
-						
-						}
-						won = won + draw / 2;
-						gamesWon.set(player.players[y].name, won);
-						gamesPlayed.set(player.players[y].name, played);
-						won = 0;
-						played = 0;
-						draw = 0;
-						console.log("draw");
-						console.log("gamesPlayed");
-						console.log(gamesPlayed);
-					}
-					for (let i = 0; i < 3; i++) 
-					{
-						if (([data.matches[i].winner] != "Draw"))
-						{						
-						var affichageWin = "Victoire de "
-							affichageWin += data.matches[i][data.matches[i].winner].name
-
-							if (data.matches[i].winner == "white")
-							{              
-								affichageWin += " avec les blancs contre ";
-								affichageWin += data.matches[i].black.name;
-							}
-							else
-							{
-								affichageWin += " avec les noirs contre ";
-									affichageWin += data.matches[i].white.name;
-
-							}
-						}
-						else
-						{
-							var affichageWin = "Égalité de ";
-							affichageWin += data.matches[i].white.name;
-							affichageWin += " avec les blancs contre ";
-							affichageWin += data.matches[i].black.name;
-						
-						}
-						affichageWin += " le ";
-							affichageWin += data.matches[i]._comment;
-							document.querySelector("#HistoFirst" + i).innerText = affichageWin;
-					}
-
-					max = 0
-						const sortedAsc = new Map([...gamesWon.entries()].sort((a, b) => b[1] - a[1]));
-					console.log(sortedAsc);
-					console.log("sortedAsc");
-
-					const firstValue = Array.from(sortedAsc.keys())[0];
-					document.querySelector("#First").innerText += firstValue; 
-
-					var pourcent = " " + gamesWon.get(Array.from(sortedAsc.keys())[0]);
-					pourcent += " / ";
-					pourcent += gamesPlayed.get(Array.from(sortedAsc.keys())[0]);
-					document.querySelector("#First").innerText += pourcent;
-					document.querySelector("#Second").innerText += Array.from(sortedAsc.keys())[1];
-					pourcent = " " + gamesWon.get(Array.from(sortedAsc.keys())[1]);
-					pourcent += " / ";
-					pourcent += gamesPlayed.get(Array.from(sortedAsc.keys())[1]);
-
-					document.querySelector("#Second").innerText += pourcent;
-					document.querySelector("#Third").innerText += Array.from(sortedAsc.keys())[2];
-					pourcent = " " + gamesWon.get(Array.from(sortedAsc.keys())[2]);
-					pourcent += " / ";
-					pourcent += gamesPlayed.get(Array.from(sortedAsc.keys())[2]);
-
-					document.querySelector("#Third").innerText += pourcent;
-					console.log(data)
-			});
-	});        
-
-
-</script>
-
-<div id="Historique" class="classement">
-<h1> Historique </h1>
-<div id="HistoFirst0" class="shadow">  </div> 
-<div id="HistoFirst1" class="shadow">  </div>
-<div id="HistoFirst2" class="shadow">  </div>
-<a href="historique" >Voir l'historique complet</a>
-</div>
-</body>
-
+    <div id="Historique" class="classement">
+      <h1>Historique</h1>
+      <div id="HistoFirst0" class="shadow"></div>
+      <div id="HistoFirst1" class="shadow"></div>
+      <div id="HistoFirst2" class="shadow"></div>
+      <a href="historique">Voir l'historique complet</a>
+    </div>
+  </body>
 </html>

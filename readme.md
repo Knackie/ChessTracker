@@ -11,7 +11,15 @@ A simple tracker for matches and history of chess games.
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+### Ranking
+
+![image](https://user-images.githubusercontent.com/72201530/193772493-386a7228-d240-47fc-9d99-20654ba0752a.png)
+
+### History
+![image](https://user-images.githubusercontent.com/72201530/193772535-1448bde8-feee-4fca-b82a-b1384a3bb677.png)
+
+### Home Page
+![image](https://user-images.githubusercontent.com/72201530/193772565-b33b7478-edf9-4c99-9e18-d98b9e85e261.png)
 
 
 ## Tech Stack

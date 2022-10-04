@@ -38,9 +38,9 @@
         .then(response => response.json())
         .then(data => {
 
-          var winned = 0;
+          var Won = 0;
           var played = 0;
-          const gamesWinned = new Map();
+          const gamesWon = new Map();
           const gamesPlayed = new Map();
           var win = Array(Object.keys(player.players).length);
           console.log(win.length)
@@ -51,15 +51,18 @@
                 {
                   if (data.matches[i][data.matches[i].winner].name == player.players[y].name) 
                   {
-                    winned++;
+                    Won++;
                   }
-                  played++;
+				  if (data.matches[i].white.name == player.players[y].name || data.matches[i].black.name == player.players[y].name)
+				  {
+					played++;
+				  }
                 }
-                gamesWinned.set(player.players[y].name, winned);
+                gamesWon.set(player.players[y].name, Won);
                 gamesPlayed.set(player.players[y].name, played);
-                winned = 0;
+                Won = 0;
                 played = 0;
-                console.log(gamesWinned);
+                console.log(gamesWon);
               }
               for (let i = 0; i < Object.keys(data.matches).length; i++) 
               {
@@ -83,19 +86,19 @@
               }
 
               max = 0
-              const sortedAsc = new Map([...gamesWinned].sort());
+              const sortedAsc = new Map([...gamesWon].sort());
               console.log(sortedAsc)
 
                 first = [...gamesPlayed][0];
                 const [firstKey] = sortedAsc.keys()
                 document.querySelector("#First").innerText += firstKey; 
-		var pourcent = gamesWinned.get(firstKey) / gamesPlayed.get(firstKey)  * 100;
+		var pourcent = gamesWon.get(firstKey) / gamesPlayed.get(firstKey)  * 100;
 		var pourcentString = " avec " + pourcent + " % ";
 		document.querySelector("#First").innerText += pourcentString;
                 document.querySelector("#Second").innerText += Array.from(sortedAsc.keys())[1];
-	      	if (gamesWinned.get(Array.from(sortedAsc.keys())[1]) != 0)
+	      	if (gamesWon.get(Array.from(sortedAsc.keys())[1]) != 0)
                 { 
-	      		pourcent = gamesWinned.get(Array.from(sortedAsc.keys())[1]) / gamesPlayed.get(firstKey) * 100;
+	      		pourcent = gamesWon.get(Array.from(sortedAsc.keys())[1]) / gamesPlayed.get(Array.from(sortedAsc.keys())[1]) * 100;
       		}
 	      	else
 	      	{
@@ -104,14 +107,15 @@
 		pourcentString = " avec " + pourcent + " % ";
 		document.querySelector("#Second").innerText += pourcentString;
               document.querySelector("#Third").innerText += Array.from(sortedAsc.keys())[2];
-	     	if (gamesWinned.get(Array.from(sortedAsc.keys())[2]) != 0)
+	     	if (gamesWon.get(Array.from(sortedAsc.keys())[2]) != 0)
                 { 
-	      		pourcent = gamesWinned.get(Array.from(sortedAsc.keys())[2]) / gamesPlayed.get(firstKey)  * 100;
+	      		pourcent = gamesWon.get(Array.from(sortedAsc.keys())[2]) / gamesPlayed.get(Array.from(sortedAsc.keys())[2])  * 100;
       		}
 	      	else
 	      	{
 	      		pourcent = " 0 ";
 	      	}
+		pourcentString = " avec " + pourcent + " % ";
 		document.querySelector("#Third").innerText += pourcentString;
               console.log(data)
             });

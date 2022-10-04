@@ -94,8 +94,14 @@
 				        document.querySelector("#First").innerText += pourcent;
 				        document.querySelector("#First").innerText += " % ";
                 document.querySelector("#Second").innerText += Array.from(sortedAsc.keys())[1];
+	      	gamesPlayed.get(firstKey) / gamesWinned.get(Array.from(sortedAsc.keys())[1]) * 100;
+		document.querySelector("#Second").innerText += pourcent;
+		document.querySelector("#Second").innerText += " % ";
                 //document.querySelector("#Second").innerText += Array.from(sortedAsc.keys())[1];
                 document.querySelector("#Third").innerText += Array.from(sortedAsc.keys())[2];
+	      	gamesPlayed.get(firstKey) / gamesWinned.get(Array.from(sortedAsc.keys())[2]) * 100;
+		document.querySelector("#Second").innerText += pourcent;
+		document.querySelector("#Second").innerText += " % ";
               console.log(data)
             });
       });        

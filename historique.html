@@ -11,8 +11,8 @@
 <body>
 <div class="w3-bar w3-green">
 <a href="index.html" class="w3-bar-item w3-button">Accueil</a>
-<a href="classement" class="w3-bar-item w3-button">Classement</a>
-<a href="#" class="w3-bar-item w3-button">Historique</a>
+<a href="/classement" class="w3-bar-item w3-button">Classement</a>
+<a href="/historique" class="w3-bar-item w3-button">Historique</a>
 <a href="https://github.com/Knackie/ChessTracker" class="w3-bar-item w3-button">Github</a>
 </div>
 
@@ -32,19 +32,59 @@ function getByValue(map, searchValue) {
 fetch("https://raw.githubusercontent.com/Knackie/ChessTracker/main/matches.json")
 .then(response => response.json())
 .then(data => {
+			var beginClassement;
+			var middleClassement;
+			var endClassement;
+
+			
 			for (let i = 0; i < Object.keys(data.matches).length; i++) 
 			{
+				var joueur1;
+				var joueur2;
 					if (data.matches[i].winner == "Draw")
 					{
+						beginClassement = "Égalité de ";
+						joueur1 = data.matches[i].white.name;
+						console.log(joueur1);
+						middleClassement += " avec les blancs contre ";
+						joueur2 = data.matches[i].black.name;
 					}
 					else if ([data.matches[i].winner] != "Draw")
 					{
+						if (data.matches[i].winner == "white")
+							{       
+								beginClassement = "Victoire de ";	
+								joueur1 = data.matches[i].white.name;
+								console.log(joueur1);
+								middleClassement += " avec les blancs contre ";
+								joueur2 = data.matches[i].black.name;
+							}
+							else
+							{
+								beginClassement = "Victoire de ";	
+								joueur1 = data.matches[i].black.name;
+								console.log(joueur1);
+								middleClassement += " avec les noirs contre ";
+								joueur2 = data.matches[i].white.name;
+							
+							}
+						endClassement += " le ";
+						endClassement += data.matches[i]._comment;
 						
 					}
-				
-			var tag = document.createElement("div");
-			var lineClassement = "premier";
-			var text = document.createTextNode(lineClassement);
+			var divId = "div" + i;
+			console.log(joueur1);
+			var divIdJoueur1href = "players/";
+			divIdJoueur1href += joueur1;
+			console.log(divIdJoueur1href);
+			var divIdJoueur1 = "a";
+			var divIdJoueur2 = "div" + i + joueur2;
+			var tag = document.createElement(divIdJoueur1);
+			tag.href = divIdJoueur1href;
+			var text = document.createTextNode("Mathieu");
+			var refJoueur1 = document.createTextNode(joueur1);
+			var beginClassementRef = document.createTextNode(beginClassement);
+			tag.appendChild(beginClassementRef);
 			tag.appendChild(text);
 			tag.classList.add("shadow");
 			var element = document.getElementById("Classement");

@@ -54,18 +54,23 @@ fetch("https://raw.githubusercontent.com/Knackie/ChessTracker/main/players.json"
 					{
 					for (let i = 0; i < Object.keys(data.matches).length; i++) 
 					{
-					if (data.matches[i][data.matches[i].winner].name == player.players[y].name) 
-					{
-					won++;
-					}
-					if (data.matches[i][data.matches[i].winner] == "Draw" && (data.matches[i].white.name == player.players[y].name || data.matches[i].black.name == player.players[y].name))
-					{
-					draw++;
-					}
-					if (data.matches[i].white.name == player.players[y].name || data.matches[i].black.name == player.players[y].name)
-					{
-						played++;
-					}
+						if (data.matches[i].white.name == player.players[y].name || data.matches[i].black.name == player.players[y].name)
+						{
+							played++;
+						
+							if (data.matches[i][data.matches[i].winner] == "Draw")
+							{
+								draw++;
+							}
+							else if ([data.matches[i].winner] != "Draw")
+							{
+								if(data.matches[i][data.matches[i].winner].name == player.players[y].name) 
+								{
+									won++;
+								}
+							}
+						}
+					
 					}
 					gamesWon.set(won, player.players[y].name,);
 					gamesDraw.set(draw, player.players[y].name);
@@ -75,26 +80,39 @@ fetch("https://raw.githubusercontent.com/Knackie/ChessTracker/main/players.json"
 					draw = 0;
 					console.log("gamesWon");
 					console.log(gamesWon);
+					console.log("gamesPlayed");
+					console.log(gamesPlayed);
 					}
-					for (let i = 0; i < Object.keys(data.matches).length; i++) 
+					for (let i = 0; i < 3; i++) 
 					{
+						if (([data.matches[i].winner] != "Draw"))
+						{						
 						var affichageWin = "Victoire de "
 							affichageWin += data.matches[i][data.matches[i].winner].name
 
 							if (data.matches[i].winner == "white")
 							{              
-								affichageWin += " avec les blancs contre "
-									affichageWin += data.matches[i].black.name
+								affichageWin += " avec les blancs contre ";
+								affichageWin += data.matches[i].black.name;
 							}
 							else
 							{
-								affichageWin += " avec les noirs contre "
-									affichageWin += data.matches[i].white.name
+								affichageWin += " avec les noirs contre ";
+									affichageWin += data.matches[i].white.name;
 
 							}
-						affichageWin += " le "
-							affichageWin += data.matches[i]._comment
-							document.querySelector("#HistoFirst" + i).innerText = affichageWin
+						}
+						else
+						{
+							var affichageWin = "Égalité de ";
+							affichageWin += data.matches[i].black.name;
+							affichageWin += " avec les blancs contre ";
+							affichageWin += data.matches[i].black.name;
+						
+						}
+						affichageWin += " le ";
+							affichageWin += data.matches[i]._comment;
+							document.querySelector("#HistoFirst" + i).innerText = affichageWin;
 					}
 
 					max = 0
@@ -107,6 +125,7 @@ fetch("https://raw.githubusercontent.com/Knackie/ChessTracker/main/players.json"
 					var pourcent = " " + getByValue(gamesWon, Array.from(sortedAsc.values())[sortedAsc.size-1]);
 					pourcent += " / ";
 					pourcent += getByValue(gamesPlayed, Array.from(sortedAsc.values())[sortedAsc.size-1]);
+					pourcent += ","// + getByValue(gamesDraw, Array.from(sortedAsc.values())[sortedAsc.size-1]);
 					document.querySelector("#First").innerText += pourcent;
 					document.querySelector("#Second").innerText += Array.from(sortedAsc.values())[sortedAsc.size-2];
 					pourcent = " " + getByValue(gamesWon, Array.from(sortedAsc.values())[sortedAsc.size-2]);

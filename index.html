@@ -89,10 +89,9 @@
                 first = [...gamesPlayed][0];
                 const [firstKey] = sortedAsc.keys()
                 document.querySelector("#First").innerText += firstKey; 
-                document.querySelector("#First").innerText += " ";
 		var pourcent = gamesPlayed.get(firstKey) / gamesWinned.get(firstKey) * 100;
-		document.querySelector("#First").innerText += pourcent;
-		document.querySelector("#First").innerText += " % ";
+		var pourcentString = " avec " + pourcent + " % ";
+		document.querySelector("#First").innerText += pourcentString;
                 document.querySelector("#Second").innerText += Array.from(sortedAsc.keys())[1];
 	      	if (gamesWinned.get(Array.from(sortedAsc.keys())[1]) != 0)
                 { 
@@ -102,9 +101,9 @@
 	      	{
 	      		pourcent = " 0 ";
 	      	}
-		document.querySelector("#Second").innerText += pourcent;
-		document.querySelector("#Second").innerText += " % ";
-                document.querySelector("#Third").innerText += Array.from(sortedAsc.keys())[2];
+		pourcentString = " avec " + pourcent + " % ";
+		document.querySelector("#Second").innerText += pourcentString;
+              document.querySelector("#Third").innerText += Array.from(sortedAsc.keys())[2];
 	     	if (gamesWinned.get(Array.from(sortedAsc.keys())[2]) != 0)
                 { 
 	      		pourcent = gamesPlayed.get(firstKey) / gamesWinned.get(Array.from(sortedAsc.keys())[2]) * 100;
@@ -113,8 +112,7 @@
 	      	{
 	      		pourcent = " 0 ";
 	      	}
-		document.querySelector("#Third").innerText += pourcent;
-		document.querySelector("#Third").innerText += " % ";
+		document.querySelector("#Third").innerText += pourcentString;
               console.log(data)
             });
       });        

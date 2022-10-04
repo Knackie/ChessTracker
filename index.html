@@ -88,7 +88,11 @@
 
                 first = [...gamesPlayed][0];
                 const [firstKey] = sortedAsc.keys()
-                document.querySelector("#First").innerText += firstKey;
+                document.querySelector("#First").innerText += firstKey; 
+                document.querySelector("#First").innerText += " ";
+				        var pourcent = gamesPlayed.get(firstKey) / gamesWinned.get(firstKey) * 100;
+				        document.querySelector("#First").innerText += pourcent;
+				        document.querySelector("#First").innerText += " % ";
                 document.querySelector("#Second").innerText += Array.from(sortedAsc.keys())[1];
                 //document.querySelector("#Second").innerText += Array.from(sortedAsc.keys())[1];
                 document.querySelector("#Third").innerText += Array.from(sortedAsc.keys())[2];

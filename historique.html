@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<title>♟️Chess Tracker</title>
+</head>
+
+<body>
+<div class="w3-bar w3-green">
+<a href="index.html" class="w3-bar-item w3-button">Accueil</a>
+<a href="/classement" class="w3-bar-item w3-button">Classement</a>
+<a href="/historique" class="w3-bar-item w3-button">Historique</a>
+<a href="https://github.com/Knackie/ChessTracker" class="w3-bar-item w3-button">Github</a>
+</div>
+
+
+<div id="Classement" class="classement">
+<h1> Classement </h1>
+<script>
+   
+
+
+function getByValue(map, searchValue) {
+	for (let [key, value] of map.entries()) {
+		if (value === searchValue)
+			return key;
+	}
+}
+fetch("https://raw.githubusercontent.com/Knackie/ChessTracker/main/matches.json")
+.then(response => response.json())
+.then(data => {
+			for (let i = 0; i < Object.keys(data.matches).length; i++) 
+			{
+					if (data.matches[i].winner == "Draw")
+					{
+					}
+					else if ([data.matches[i].winner] != "Draw")
+					{
+						
+					}
+				
+			var tag = document.createElement("div");
+			var lineClassement = "premier";
+			var text = document.createTextNode(lineClassement);
+			tag.appendChild(text);
+			tag.classList.add("shadow");
+			var element = document.getElementById("Classement");
+			element.appendChild(tag);
+			}
+});       
+</script>
+
+</div>
+
+<div id="space" class="space"></div>
+
+</body>
+
+</html>

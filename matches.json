@@ -16,5 +16,11 @@
     "black": { "name": "Lorrys"  },
     "winner": "white",
     "_comment": "03/10, scandinave"
+ },
+ { 
+    "white": { "name": "Brice" },
+    "black": { "name": "Lorrys"  },
+    "winner": "Draw",
+    "_comment": "03/10, indian open"
  }
 ]}

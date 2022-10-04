@@ -32,66 +32,66 @@
           .then(p => {
             player = p;
             console.log(player)  
-          });
+
    
-    fetch("https://raw.githubusercontent.com/Knackie/ChessTracker/main/matches.json")
-      .then(response => response.json())
-      .then(data => {
-        
-        var winned = 0;
-        var played = 0;
-        const gamesWinned = new Map();
-        const gamesPlayed = new Map();
-        var win = Array(Object.keys(player.players).length);
-        console.log(win.length)
-            for (let y = 0; y < Object.keys(player.players).length; y++) 
-            {
-              win.push(0);
+      fetch("https://raw.githubusercontent.com/Knackie/ChessTracker/main/matches.json")
+        .then(response => response.json())
+        .then(data => {
+
+          var winned = 0;
+          var played = 0;
+          const gamesWinned = new Map();
+          const gamesPlayed = new Map();
+          var win = Array(Object.keys(player.players).length);
+          console.log(win.length)
+              for (let y = 0; y < Object.keys(player.players).length; y++) 
+              {
+                win.push(0);
+                for (let i = 0; i < Object.keys(data.matches).length; i++) 
+                {
+                  if (data.matches[i][data.matches[i].winner].name == player.players[y].name) 
+                  {
+                    winned++;
+                  }
+                  played++;
+                }
+                gamesWinned.set(player.players[y].name, winned);
+                gamesPlayed.set(player.players[y].name, played);
+                winned = 0;
+                played = 0;
+                console.log(gamesWinned);
+              }
               for (let i = 0; i < Object.keys(data.matches).length; i++) 
               {
-                if (data.matches[i][data.matches[i].winner].name == player.players[y].name) 
-                {
-                  winned++;
+                var affichageWin = "Victoire de "
+                affichageWin += data.matches[i][data.matches[i].winner].name
+
+                if (data.matches[i].winner == "white")
+                {              
+                  affichageWin += " avec les blancs contre "
+                  affichageWin += data.matches[i].black.name
                 }
-                played++;
-              }
-              gamesWinned.set(player.players[y].name, winned);
-              gamesPlayed.set(player.players[y].name, played);
-              winned = 0;
-              played = 0;
-              console.log(gamesWinned);
-            }
-            for (let i = 0; i < Object.keys(data.matches).length; i++) 
-            {
-              var affichageWin = "Victoire de "
-              affichageWin += data.matches[i][data.matches[i].winner].name
-              
-              if (data.matches[i].winner == "white")
-              {              
-                affichageWin += " avec les blancs contre "
-                affichageWin += data.matches[i].black.name
-              }
-              else
-              {
-                affichageWin += " avec les noirs contre "
-                affichageWin += data.matches[i].white.name
+                else
+                {
+                  affichageWin += " avec les noirs contre "
+                  affichageWin += data.matches[i].white.name
 
+                }
+                document.querySelector("#HistoFirst" + i).innerText = affichageWin
               }
-              document.querySelector("#HistoFirst" + i).innerText = affichageWin
-            }
 
-            max = 0
-            const sortedAsc = new Map([...gamesWinned].sort());
-            console.log(sortedAsc)
-            
-              first = [...gamesPlayed][0];
-              const [firstKey] = sortedAsc.keys()
-              document.querySelector("#First").innerText += firstKey;
-              document.querySelector("#Second").innerText += Array.from(sortedAsc.keys())[1];
-              document.querySelector("#Third").innerText += Array.from(sortedAsc.keys())[2];
-            console.log(data)
-          });
-        
+              max = 0
+              const sortedAsc = new Map([...gamesWinned].sort());
+              console.log(sortedAsc)
+
+                first = [...gamesPlayed][0];
+                const [firstKey] = sortedAsc.keys()
+                document.querySelector("#First").innerText += firstKey;
+                document.querySelector("#Second").innerText += Array.from(sortedAsc.keys())[1];
+                document.querySelector("#Third").innerText += Array.from(sortedAsc.keys())[2];
+              console.log(data)
+            });
+      });        
 
 
   </script>

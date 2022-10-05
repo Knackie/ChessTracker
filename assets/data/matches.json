@@ -2,6 +2,18 @@
     {
       "black": { "name": "Aurélien" },
       "white": { "name": "Mathieu" },
+      "winner": "black",
+      "_comment": "05/10, Philidor Defense"
+    },
+    {
+      "black": { "name": "Aurélien" },
+      "white": { "name": "Mathieu" },
+      "winner": "black",
+      "_comment": "05/10, Défense scandinave"
+    },
+    {
+      "black": { "name": "Aurélien" },
+      "white": { "name": "Mathieu" },
       "winner": "Draw",
       "_comment": "04/10, Ruy Lopèz"
     },

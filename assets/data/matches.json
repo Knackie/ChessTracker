@@ -7,8 +7,8 @@
       "opening": "Philidor Defense"
     },
     {
-      "black": { "name": "Aurélien" },
-      "white": { "name": "Mathieu" },
+      "white": { "name": "Aurélien" },
+      "black": { "name": "Mathieu" },
       "winner": "black",
       "date": "05/10",
       "opening" : "Défense scandinave"

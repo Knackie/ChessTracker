@@ -1,8 +1,3 @@
-function getByValue(map, searchValue) {
-  for (let [key, value] of map.entries()) {
-    if (value === searchValue) return key;
-  }
-}
 var player;
 fetch(config.sources.players)
   .then((response) => response.json())

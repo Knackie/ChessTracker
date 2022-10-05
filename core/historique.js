@@ -49,7 +49,10 @@ fetch(
         }
       }
       beginClassement += " le ";
-      beginClassement += data.matches[i]._comment;
+      beginClassement += data.matches[i].date;
+      beginClassement += " ouverture : ";
+      beginClassement += data.matches[i].opening;
+      
 
       var divId = "div" + i;
       console.log(joueur1);

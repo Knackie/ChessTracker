@@ -4,17 +4,13 @@ function getByValue(map, searchValue) {
   }
 }
 var player;
-fetch(
-  "https://raw.githubusercontent.com/Knackie/ChessTracker/main/assets/data/players.json"
-)
+fetch(config.sources.players)
   .then((response) => response.json())
   .then((p) => {
     player = p;
     console.log(player);
 
-    fetch(
-      "https://raw.githubusercontent.com/Knackie/ChessTracker/main/assets/data/matches.json"
-    )
+    fetch(config.sources.matches)
       .then((response) => response.json())
       .then((data) => {
         var won = 0;

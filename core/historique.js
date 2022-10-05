@@ -3,9 +3,7 @@ function getByValue(map, searchValue) {
     if (value === searchValue) return key;
   }
 }
-fetch(
-  "https://raw.githubusercontent.com/Knackie/ChessTracker/main/assets/data/matches.json"
-)
+fetch(config.sources.matches)
   .then((response) => response.json())
   .then((data) => {
     var beginClassement;
@@ -52,7 +50,6 @@ fetch(
       beginClassement += data.matches[i].date;
       beginClassement += " ouverture : ";
       beginClassement += data.matches[i].opening;
-      
 
       var divId = "div" + i;
       console.log(joueur1);

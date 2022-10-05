@@ -72,7 +72,9 @@ fetch(
             affichageWin += data.matches[i].black.name;
           }
           affichageWin += " le ";
-          affichageWin += data.matches[i]._comment;
+          affichageWin += data.matches[i].date;
+          affichageWin += " ouverture : ";
+          affichageWin += data.matches[i].opening;
           document.querySelector("#HistoFirst" + i).innerText = affichageWin;
         }
 

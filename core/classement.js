@@ -54,30 +54,35 @@ fetch(config.sources.players)
           [...gamesWon.entries()].sort((a, b) => b[1] - a[1])
         );
 
-        for (let i = 0; i < sortedAsc.size; i++) {
-          const firstValue = Array.from(sortedAsc.keys())[i];
-          var tag = document.createElement("div");
-          var lineClassement;
-          if (i == 0) {
-            console.log("i 0");
-            lineClassement = "🥇 ";
-          } else if (i == 1) {
-            lineClassement = "🥈 ";
-          } else if (i == 2) {
-            lineClassement = "🥉 ";
-          } else {
-            lineClassement = i + 1;
-            lineClassement += " ";
-          }
-          lineClassement += firstValue + " ";
-          lineClassement += " " + gamesWon.get(Array.from(sortedAsc.keys())[i]);
-          lineClassement += " / ";
-          lineClassement += gamesPlayed.get(Array.from(sortedAsc.keys())[i]);
-          var text = document.createTextNode(lineClassement);
-          tag.appendChild(text);
-          tag.classList.add("shadow");
-          var element = document.getElementById("Classement");
-          element.appendChild(tag);
+        for (let rank = 0; rank < sortedAsc.size; rank++) {
+          const player = {
+            name: Array.from(sortedAsc.keys())[rank],
+            gamesPlayed: gamesPlayed.get(Array.from(sortedAsc.keys())[rank]),
+            gamesWon: gamesWon.get(Array.from(sortedAsc.keys())[rank]),
+          };
+
+          createRankElement(rank, player);
         }
       });
   });
+
+const getIconForRank = (rank) => {
+  if (rank === 0) return "🥇";
+  if (rank === 1) return "🥈";
+  if (rank === 2) return "🥉";
+  else return (rank + 1).toString();
+};
+
+const createRankElement = (rank, player) => {
+  const playerDetails = `${player.name} ${player.gamesWon} / ${player.gamesPlayed}`;
+  const rankingText = `${getIconForRank(rank)} ${playerDetails}`;
+
+  const rankElementText = document.createTextNode(rankingText);
+
+  const tag = document.createElement("div");
+  tag.classList.add("shadow");
+  tag.appendChild(rankElementText);
+
+  const leaderboardEl = document.getElementById("Classement");
+  leaderboardEl.appendChild(tag);
+};

@@ -41,7 +41,7 @@ fetch(
           beginClassement += data.matches[i].black.name;
           beginClassement += "'>";
           beginClassement += data.matches[i].black.name;
-          beginClassement += "</a> avec les blancs contre <a href='players/";
+          beginClassement += "</a> avec les noirs contre <a href='players/";
           beginClassement += data.matches[i].white.name;
           beginClassement += "'>";
           beginClassement += data.matches[i].white.name;

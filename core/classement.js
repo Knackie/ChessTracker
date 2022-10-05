@@ -5,7 +5,7 @@ function getByValue(map, searchValue) {
   }
   var player;
   fetch(
-    "https://raw.githubusercontent.com/Knackie/ChessTracker/main/data/players.json"
+    "https://raw.githubusercontent.com/Knackie/ChessTracker/main/assets/data/players.json"
   )
     .then((response) => response.json())
     .then((p) => {
@@ -13,7 +13,7 @@ function getByValue(map, searchValue) {
       console.log(player);
 
       fetch(
-        "https://raw.githubusercontent.com/Knackie/ChessTracker/main/data/matches.json"
+        "https://raw.githubusercontent.com/Knackie/ChessTracker/main/assets/data/matches.json"
       )
         .then((response) => response.json())
         .then((data) => {

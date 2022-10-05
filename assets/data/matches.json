@@ -3,49 +3,57 @@
       "black": { "name": "Aurélien" },
       "white": { "name": "Mathieu" },
       "winner": "black",
-      "_comment": "05/10, Philidor Defense"
+      "date": "05/10",
+      "opening": "Philidor Defense"
     },
     {
       "black": { "name": "Aurélien" },
       "white": { "name": "Mathieu" },
       "winner": "black",
-      "_comment": "05/10, Défense scandinave"
+      "date": "05/10",
+      "opening" : "Défense scandinave"
     },
     {
       "black": { "name": "Aurélien" },
       "white": { "name": "Mathieu" },
       "winner": "Draw",
-      "_comment": "04/10, Ruy Lopèz"
+      "date": "04/10",
+      "opening" :"Ruy Lopèz"
     },
     {
       "white": { "name": "Aurélien" },
       "black": { "name": "Mathieu" },
       "winner": "black",
-      "_comment": "04/10, Défense scandinave"
+      "date": "04/10",
+      "opening" : "Défense scandinave"
     },
     {
       "white": { "name": "Aurélien" },
       "black": { "name": "Mathieu" },
       "winner": "white",
-      "_comment": "03/10, Défense scandinave"
+      "date": "03/10",
+      "opening" : "Défense scandinave"
     },
     {
       "black": { "name": "Aurélien" },
       "white": { "name": "Mathieu" },
       "winner": "black",
-      "_comment": "03/10, Ruy Lopèz"
+      "date": "03/10", 
+      "opening" : "Ruy Lopèz"
     },
     {
       "black": { "name": "Mathieu" },
       "white": { "name": "Lorrys" },
       "winner": "black",
-      "_comment": "03/10, Ware opening, crab variation"
+      "date": "03/10",
+      "opening" : "Ware opening, crab variation"
     },
     {
       "white": { "name": "Brice" },
       "black": { "name": "Lorrys" },
       "winner": "Draw",
-      "_comment": "03/10, indian open"
+      "date": "03/10",
+      "opening" : "indian open"
     }
   ]
 }

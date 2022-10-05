@@ -4,7 +4,7 @@ function getByValue(map, searchValue) {
   }
 }
 fetch(
-  "https://raw.githubusercontent.com/Knackie/ChessTracker/main/data/matches.json"
+  "https://raw.githubusercontent.com/Knackie/ChessTracker/main/assets/data/matches.json"
 )
   .then((response) => response.json())
   .then((data) => {

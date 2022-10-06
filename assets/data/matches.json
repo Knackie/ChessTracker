@@ -1,6 +1,15 @@
 {"matches":[
     {
       "black": { "name": "Mathieu" },
+      "white": { "name": "Lorrys" },
+      "winner": "white",
+      "date": "06/10",
+      "opening": "Défense Basman"
+    },
+    
+    
+    {
+      "black": { "name": "Mathieu" },
       "white": { "name": "Martin" },
       "winner": "white",
       "date": "05/10",

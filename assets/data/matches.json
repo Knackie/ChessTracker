@@ -1,7 +1,7 @@
 {"matches":[
      {
       "white": { "name": "Aurélien" },
-      "back": { "name": "Lorrys" },
+      "black": { "name": "Lorrys" },
       "winner": "white",
       "date": "06/10",
       "opening": "King's Pawn Opening : Hippopotamus Defense"

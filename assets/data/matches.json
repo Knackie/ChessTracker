@@ -2,13 +2,6 @@
       {
       "black": { "name": "Lorrys" },
       "white": { "name": "Martin" },
-      "winner": "Draw",
-      "date": "07/10",
-      "opening": "King's Pawn Opening : King's Knight Variation "
-      },
-      {
-      "black": { "name": "Lorrys" },
-      "white": { "name": "Martin" },
       "winner": "white",
       "date": "07/10",
       "opening": "Philidor Défense"

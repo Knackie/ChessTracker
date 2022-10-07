@@ -125,13 +125,6 @@
       "winner": "black",
       "date": "03/10",
       "opening" : "Ware opening, crab variation"
-    },
-    {
-      "white": { "name": "Brice" },
-      "black": { "name": "Lorrys" },
-      "winner": "Draw",
-      "date": "03/10",
-      "opening" : "indian open"
     }
   ]
 }

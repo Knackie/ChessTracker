@@ -16,13 +16,13 @@
       {
       "black": { "name": "Mathieu" },
       "white": { "name": "Baptiste" },
-      "winner": "black",
+      "winner": "white",
       "date": "07/10",
       "opening": "Scandinave Défense"
       },
       {
       "white": { "name": "Mathieu" },
-      "black": { "name": "Lorrys" },
+      "black": { "name": "Baptiste" },
       "winner": "black",
       "date": "07/10",
       "opening": "Barnes Opening"

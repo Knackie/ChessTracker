@@ -3,6 +3,20 @@
       "black": { "name": "Martin" },
       "white": { "name": "Lorrys" },
       "winner": "white",
+      "date": "07/10",
+      "opening": "Vienna Game : Falkbeer Variation"
+      },
+      {
+      "white": { "name": "Martin" },
+      "black": { "name": "Lorrys" },
+      "winner": "black",
+      "date": "07/10",
+      "opening": "King's Pawn Opening : King's Knight Variation"
+      },
+      {
+      "black": { "name": "Martin" },
+      "white": { "name": "Lorrys" },
+      "winner": "white",
       "date": "06/10",
       "opening": "French variation "
       },

@@ -21,9 +21,9 @@
 
     <div id="Classement" class="classement">
       <h1>Classement</h1>
-      <div id="First" class="shadow">🥇</div>
-      <div id="Second" class="shadow">🥈</div>
-      <div id="Third" class="shadow">🥉</div>
+      <div id="First" style="cursor: pointer" class="shadow">🥇</div>
+      <div id="Second" style="cursor: pointer" class="shadow">🥈</div>
+      <div id="Third" style="cursor: pointer" class="shadow">🥉</div>
       <a href="classement">Voir le classement complet</a>
     </div>
     <div id="space" class="space"></div>
@@ -40,13 +40,4 @@
   <script src="core/config.js"></script>
   <script src="core/player-details.js"></script>
   <script src="core/index.js"></script>
-
-  <script>
-    ["First", "Second", "Third"]
-      .map((id) => document.getElementById(id))
-      .forEach((el) => {
-        const getName = () => el.innerText.split(" ")[0].substring(2);
-        el.onclick = () => navigateToPlayerDetails(el, getName);
-      });
-  </script>
 </html>

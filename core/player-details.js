@@ -1,3 +1,23 @@
+const htmlBodyHistory = [];
+
+onpopstate = (_event) => {
+  const previousPage = htmlBodyHistory.pop();
+
+  if (previousPage) {
+    document.body.innerHTML = previousPage;
+    registerIndexListeners();
+  }
+};
+
+const registerIndexListeners = () => {
+  ["First", "Second", "Third"]
+  .map((id) => document.getElementById(id))
+  .forEach((el) => {
+    const getName = () => el.innerText.split(" ")[0].substring(2);
+    el.onclick = () => navigateToPlayerDetails(el, getName);
+  });
+}
+
 const navigateToPlayerDetails = (el, getNameFrom) => {
   const playerName = getNameFrom(el);
 
@@ -19,6 +39,8 @@ const showPlayerDetails = (playerName) => {
 };
 
 const replaceBodyWith = (template) => {
+  htmlBodyHistory.push(document.body.innerHTML);
+
   const navbarTemplate = `
     <div class="w3-bar w3-green">
       <a href="/ChessTracker" class="w3-bar-item w3-button">Accueil</a>
@@ -30,7 +52,7 @@ const replaceBodyWith = (template) => {
         >Github</a
       >
     </div>
-    `;
+  `;
 
   document.body.innerHTML = navbarTemplate + template;
 };

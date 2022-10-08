@@ -100,5 +100,7 @@ fetch(config.sources.players)
 
         document.querySelector("#Third").innerText += pourcent;
         console.log(data);
+
+        registerIndexListeners();
       });
   });

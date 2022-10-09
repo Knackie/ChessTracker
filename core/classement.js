@@ -19,7 +19,9 @@ Promise.all([
     });
 
   const leaderboard = new Map(
-    [...playerStatistics.entries()].sort((a, b) => b[1] - a[1])
+    [...playerStatistics.entries()].sort((a, b) => {
+      return b[1].won - a[1].won;
+    })
   );
 
   let rank = 0;
@@ -31,29 +33,45 @@ Promise.all([
 
 const getStatisticsOn = (matches) => {
   return function (playerName) {
-    return matches.reduce(
-      (statistics, match) => {
-        const winner = match.winner;
+    return matches
+      .filter(
+        (match) =>
+          match.black.name === playerName || match.white.name === playerName
+      )
+      .reduce(
+        (statistics, match) => {
+          const winner = match.winner;
 
-        const isDraw = winner.toLowerCase() === "draw";
-        if (isDraw) {
-          return { ...statistics, draw: statistics.draw + 1 };
-        }
+          const isDraw = winner.toLowerCase() === "draw";
+          if (isDraw) {
+            return {
+              ...statistics,
+              played: statistics.played + 1,
+              draw: statistics.draw + 1,
+            };
+          }
 
-        const isWon = match[winner].name === playerName;
-        return isWon
-          ? { ...statistics, won: statistics.won + 1 }
-          : { ...statistics };
-      },
-      { played: matches.length, won: 0, draw: 0 }
-    );
+          const isWon = match[winner].name === playerName;
+          return isWon
+            ? {
+                ...statistics,
+                played: statistics.played + 1,
+                won: statistics.won + 1,
+              }
+            : {
+                ...statistics,
+                played: statistics.played + 1,
+              };
+        },
+        { played: 0, won: 0, draw: 0 }
+      );
   };
 };
 
 const getIconFor = (rank) => {
   if (rank === 0) return "🥇";
-  if (rank === 0) return "🥈";
-  if (rank === 0) return "🥉";
+  if (rank === 1) return "🥈";
+  if (rank === 2) return "🥉";
   else return (++rank).toString();
 };
 

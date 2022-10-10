@@ -88,6 +88,7 @@ const createRankEl = (rank, playerName, gamesPlayed, gamesWon) => {
   tag.id = "classement-" + rank;
   tag.classList.add("shadow");
   tag.onclick = () => navigateToPlayerDetailsScoreboard(tag, playerName);
+  tag.style = "cursor: pointer";
   tag.appendChild(text);
 
   const element = document.getElementById("Classement");

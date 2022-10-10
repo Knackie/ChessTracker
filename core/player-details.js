@@ -12,6 +12,7 @@ onpopstate = (_event) => {
 const registerIndexListeners = () => {
   ["First", "Second", "Third"]
   .map((id) => document.getElementById(id))
+ 
   .forEach((el) => {
     const getName = () => el.innerText.split(" ")[0].substring(2);
     el.onclick = () => navigateToPlayerDetails(el, getName);
@@ -20,12 +21,24 @@ const registerIndexListeners = () => {
 
 const navigateToPlayerDetails = (el, getNameFrom) => {
   const playerName = getNameFrom(el);
+  console.log(playerName+ " ??????");
 
   history.pushState({}, "", `#${playerName}`);
   document.title = `♟️ Chess Tracker - ${playerName}`;
 
   showPlayerDetails(playerName);
 };
+
+const navigateToPlayerDetailsScoreboard = (el, playerName) => {
+  console.log(playerName+ " ??????");
+
+  history.pushState({}, "", `#${playerName}`);
+  document.title = `♟️ Chess Tracker - ${playerName}`;
+
+  showPlayerDetails(playerName);
+};
+
+
 
 const showPlayerDetails = (playerName) => {
   const detailsTemplate = `

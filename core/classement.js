@@ -25,10 +25,14 @@ Promise.all([
   );
 
   let rank = 0;
+  let rankMap = [];
   for (const [player, statistics] of leaderboard.entries()) {
     const { played, won } = statistics;
+    rankMap.push("element-"+rank);
     createRankEl(rank++, player, played, won);
   }
+  console.log(rankMap)
+  console.log("rankMap")
 });
 
 const getStatisticsOn = (matches) => {
@@ -80,11 +84,13 @@ const createRankEl = (rank, playerName, gamesPlayed, gamesWon) => {
     rank
   )} ${playerName} ${gamesWon} / ${gamesPlayed}`;
   const text = document.createTextNode(rankingText);
-
   const tag = document.createElement("div");
+  tag.id = "classement-" + rank;
   tag.classList.add("shadow");
+  tag.onclick = () => navigateToPlayerDetailsScoreboard(tag, playerName);
   tag.appendChild(text);
 
   const element = document.getElementById("Classement");
   element.appendChild(tag);
+
 };

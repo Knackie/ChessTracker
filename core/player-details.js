@@ -10,13 +10,20 @@ onpopstate = (_event) => {
 };
 
 const registerIndexListeners = () => {
-  ["First", "Second", "Third"]
-  .map((id) => document.getElementById(id))
+  const elements = document.querySelector('#Classement').children;
+  for (let i = 1; i < elements.length; i++) {
+    const element = elements[i];
+		const getName = () => element.innerText.split(' ')[1];
+		element.onclick = () => navigateToPlayerDetails(element, getName);
+  }
+
+  //["First", "Second", "Third"]
+  //.map((id) => document.getElementById(id))
  
-  .forEach((el) => {
-    const getName = () => el.innerText.split(" ")[0].substring(2);
-    el.onclick = () => navigateToPlayerDetails(el, getName);
-  });
+  //.forEach((el) => {
+  //  const getName = () => el.innerText.split(" ")[0].substring(2);
+  //  el.onclick = () => navigateToPlayerDetails(el, getName);
+  //});
 }
 
 const navigateToPlayerDetails = (el, getNameFrom) => {

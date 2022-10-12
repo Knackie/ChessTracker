@@ -1,10 +1,17 @@
 {"matches":[
       {
+      "black": { "name": "Lorrys" },
+      "white": { "name": "Loic" },
+      "winner": "white",
+      "date": "12/10",
+      "opening": "Petrov's Défense"
+      },
+      {
       "black": { "name": "Mathieu" },
       "white": { "name": "Aurélien" },
       "winner": "Draw",
       "date": "12/10",
-      "opening": "Scandinave Défense "
+      "opening": "Scandinave Défense"
       },
       {
       "white": { "name": "Mathieu" },

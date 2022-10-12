@@ -77,19 +77,23 @@ fetch(config.sources.players)
         console.log("sortedAsc");
 
         const firstValue = Array.from(sortedAsc.keys())[0];
-        document.querySelector("#First").innerText += " " + firstValue;
+        document.querySelector("#First").innerText += firstValue;
 
         var pourcent = " " + gamesWon.get(Array.from(sortedAsc.keys())[0]);
         pourcent += " / ";
         pourcent += gamesPlayed.get(Array.from(sortedAsc.keys())[0]);
-        document.querySelector('#First').innerText += pourcent;
-        document.querySelector('#Second').innerText += ' ' + Array.from(sortedAsc.keys())[1];
+        document.querySelector("#First").innerText += pourcent;
+        document.querySelector("#Second").innerText += Array.from(
+          sortedAsc.keys()
+        )[1];
         pourcent = " " + gamesWon.get(Array.from(sortedAsc.keys())[1]);
         pourcent += " / ";
         pourcent += gamesPlayed.get(Array.from(sortedAsc.keys())[1]);
 
-        document.querySelector('#Second').innerText += ' ' + pourcent;
-        document.querySelector('#Third').innerText += ' ' + Array.from(sortedAsc.keys())[2];
+        document.querySelector("#Second").innerText += pourcent;
+        document.querySelector("#Third").innerText += Array.from(
+          sortedAsc.keys()
+        )[2];
         pourcent = " " + gamesWon.get(Array.from(sortedAsc.keys())[2]);
         pourcent += " / ";
         pourcent += gamesPlayed.get(Array.from(sortedAsc.keys())[2]);

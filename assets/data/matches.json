@@ -2,6 +2,20 @@
       {
       "black": { "name": "Mathieu" },
       "white": { "name": "Aurélien" },
+      "winner": "Draw",
+      "date": "12/10",
+      "opening": "Scandinave Défense "
+      },
+      {
+      "white": { "name": "Mathieu" },
+      "black": { "name": "Aurélien" },
+      "winner": "white",
+      "date": "11/10",
+      "opening": "Bishop's Opening"
+      },
+      {
+      "black": { "name": "Mathieu" },
+      "white": { "name": "Aurélien" },
       "winner": "black",
       "date": "11/10",
       "opening": "Scandinave Défense "

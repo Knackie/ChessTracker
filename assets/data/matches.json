@@ -1,8 +1,8 @@
 {"matches":[
       {
-      "black": { "name": "Lorrys" },
-      "white": { "name": "Loic" },
-      "winner": "white",
+      "white": { "name": "Lorrys" },
+      "black": { "name": "Loic" },
+      "winner": "black",
       "date": "14/10",
       "opening": "Petrov's Défense"
       },

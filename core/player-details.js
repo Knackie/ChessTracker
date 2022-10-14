@@ -44,7 +44,15 @@ const showPlayerDetails = (playerName) => {
   const detailsTemplate = `
     <div class="details">
       <h1>${playerName}</h1>
-      <a href="classement">Voir le classement complet</a>
+    </div>
+     <div class="StatisticsColors">
+      <h1>Statistiques par couleur</h1>
+    </div>
+     <div class="StatisticsOpening">
+      <h1>Statistiques par ouverture</h1>
+    </div>
+     <div class="StatistiquesDay">
+      <h1>Statistiques par jour</h1>
     </div>
     `;
 

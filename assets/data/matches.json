@@ -1,6 +1,20 @@
 {"matches":[
       {
       "black": { "name": "Lorrys" },
+      "white": { "name": "Antoine"},
+      "winner": "white",
+      "date": "19/10",
+      "opening": "Scandinave Défense"
+      },
+      {
+      "white": { "name": "Mathieu" },
+      "black": { "name": "Antoine"},
+      "winner": "white",
+      "date": "19/10",
+      "opening": "Ruy Lopèz"
+      },
+      {
+      "black": { "name": "Lorrys" },
       "white": { "name": "Dylan"},
       "winner": "white",
       "date": "19/10",
@@ -32,7 +46,7 @@
       "black": { "name": "Aurélien" },
       "winner": "white",
       "date": "18/10",
-      "opening": "Ruy lopez"
+      "opening": "Ruy Lopèz"
       }, 
       {
       "black": { "name": "Dylan" },

@@ -16,6 +16,7 @@ Promise.all([
         played: statistics.played,
         won: statistics.won + statistics.draw / 2,
         elo : "1200",
+        console.log(playerStatistics);
       });
     });
 
@@ -30,7 +31,7 @@ Promise.all([
   for (const [player, statistics] of leaderboard.entries()) {
     const { played, won } = statistics;
     rankMap.push("element-"+rank);
-    createRankEl(rank++, player, played, won, playerStatistics.playerName.elo);
+    createRankEl(rank++, player, played, won, playerStatistics.elo);
   }
   console.log(rankMap)
   console.log("rankMap")

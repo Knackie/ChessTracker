@@ -11,17 +11,12 @@ Promise.all([
   players.players
     .map((player) => player.name)
     .forEach((playerName) => {
-      const statistics = getStatisticsFor(playerName);
-      playerStatistics.set(playerName, {
-        played: statistics.played,
-        won: statistics.won + statistics.draw / 2,
-        elo : 1200,
-      });
+      playerStatistics.set(playerName, elo : 1200);
     });
 
   const leaderboard = new Map(
     [...playerStatistics.entries()].sort((a, b) => {
-      return b[1].won - a[1].won;
+      return b[1].elo - a[1].elo;
     })
   );
 
@@ -30,7 +25,7 @@ Promise.all([
   for (const [player, statistics] of leaderboard.entries()) {
     const { played, won } = statistics;
     rankMap.push("element-"+rank);
-    createRankEl(rank++, player, played, won);
+    createRankEl(rank++, elo);
   }
   console.log(rankMap)
   console.log("rankMap")
@@ -80,10 +75,10 @@ const getIconFor = (rank) => {
   else return (++rank).toString();
 };
 
-const createRankEl = (rank, playerName, gamesPlayed, gamesWon) => {
+const createRankEl = (rank, playerName, elo) => {
   const rankingText = `${getIconFor(
     rank
-  )} ${playerName} ${gamesWon} / ${gamesPlayed}`;
+  )} ${playerName} ${elo}`;
   const text = document.createTextNode(rankingText);
   const tag = document.createElement("div");
   tag.id = "classement-" + rank;

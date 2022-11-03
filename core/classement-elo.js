@@ -11,7 +11,7 @@ Promise.all([
   players.players
     .map((player) => player.name)
     .forEach((playerName) => {
-      const elo = playerName.elo;
+      const elo = players.players[playerName].elo;
       const statistics = getStatisticsFor(playerName);
       playerStatistics.set(playerName, {
         played: statistics.played,

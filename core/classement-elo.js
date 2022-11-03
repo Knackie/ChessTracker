@@ -16,8 +16,8 @@ Promise.all([
         played: statistics.played,
         won: statistics.won + statistics.draw / 2,
         elo : "1200",
-        console.log(playerStatistics);
       });
+    console.log(playerStatistics);
     });
 
   const leaderboard = new Map(

@@ -1,17 +1,17 @@
 {
   "players": [
-    { "name": "Aurélien" },
-    { "name": "Mathieu" },
-    { "name": "Brice" },
-    { "name": "Lorrys" },
-    { "name": "Baptiste" },
-    { "name": "Dylan" },
-    { "name": "Loic" },
-    { "name": "Alexandre" },
-    { "name": "Alexandre L" },
-    { "name": "Loic" },    
-    { "name": "Martin" },
-    { "name": "Matthieu" },
-    { "name": "Antoine" }
+    { "name": "Aurélien", "elo":"1399" },
+    { "name": "Mathieu", "elo":"1599" },
+    { "name": "Brice", "elo":"1199" },
+    { "name": "Lorrys", "elo":"1199" },
+    { "name": "Baptiste", "elo":"1399" },
+    { "name": "Dylan", "elo":"1199" },
+    { "name": "Loic", "elo":"1199" },
+    { "name": "Alexandre", "elo":"1199" },
+    { "name": "Alexandre L", "elo":"1199" },
+    { "name": "Loic", "elo":"1199" },    
+    { "name": "Martin", "elo":"1199" },
+    { "name": "Matthieu", "elo":"1199" },
+    { "name": "Antoine", "elo":"1399" }
   ]
 }

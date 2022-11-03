@@ -11,12 +11,17 @@ Promise.all([
   players.players
     .map((player) => player.name)
     .forEach((playerName) => {
-      playerStatistics.set(playerName, elo : 1200);
+      const statistics = getStatisticsFor(playerName);
+      playerStatistics.set(playerName, {
+        played: statistics.played,
+        won: statistics.won + statistics.draw / 2,
+        elo : "1200",
+      });
     });
 
   const leaderboard = new Map(
     [...playerStatistics.entries()].sort((a, b) => {
-      return b[1].elo - a[1].elo;
+      return b[1].won - a[1].won;
     })
   );
 
@@ -25,7 +30,7 @@ Promise.all([
   for (const [player, statistics] of leaderboard.entries()) {
     const { played, won } = statistics;
     rankMap.push("element-"+rank);
-    createRankEl(rank++, elo);
+    createRankEl(rank++, player, played, won, elo);
   }
   console.log(rankMap)
   console.log("rankMap")
@@ -75,10 +80,10 @@ const getIconFor = (rank) => {
   else return (++rank).toString();
 };
 
-const createRankEl = (rank, playerName, elo) => {
+const createRankEl = (rank, playerName, gamesPlayed, gamesWon, elo) => {
   const rankingText = `${getIconFor(
     rank
-  )} ${playerName} ${elo}`;
+  )} ${playerName} ${gamesWon} / ${gamesPlayed} - ${elo}`;
   const text = document.createTextNode(rankingText);
   const tag = document.createElement("div");
   tag.id = "classement-" + rank;
@@ -87,7 +92,7 @@ const createRankEl = (rank, playerName, elo) => {
   tag.style = "cursor: pointer";
   tag.appendChild(text);
 
-  const element = document.getElementById("Classement-elo");
+  const element = document.getElementById("Classement");
   element.appendChild(tag);
 
 };

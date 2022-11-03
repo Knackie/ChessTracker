@@ -92,7 +92,7 @@ const createRankEl = (rank, playerName, gamesPlayed, gamesWon, elo) => {
   tag.style = "cursor: pointer";
   tag.appendChild(text);
 
-  const element = document.getElementById("Classement");
+  const element = document.getElementById("Classement-elo");
   element.appendChild(tag);
 
 };

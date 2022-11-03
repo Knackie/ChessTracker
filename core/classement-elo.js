@@ -15,8 +15,9 @@ Promise.all([
       playerStatistics.set(playerName, {
         played: statistics.played,
         won: statistics.won + statistics.draw / 2,
-        console.log(player.elo)
+       
       });
+     console.log(player.elo)
     });
 
   const leaderboard = new Map(

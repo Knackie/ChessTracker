@@ -15,6 +15,7 @@ Promise.all([
       playerStatistics.set(playerName, {
         played: statistics.played,
         won: statistics.won + statistics.draw / 2,
+        elo: player.elo,
       });
     });
 

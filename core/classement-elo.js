@@ -30,7 +30,7 @@ Promise.all([
   for (const [player, statistics] of leaderboard.entries()) {
     const { played, won } = statistics;
     rankMap.push("element-"+rank);
-    createRankEl(rank++, player, played, won, playerStatistics.elo);
+    createRankEl(rank++, player, played, won, playerStatistics.playerName.elo);
   }
   console.log(rankMap)
   console.log("rankMap")

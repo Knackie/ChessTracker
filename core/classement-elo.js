@@ -11,14 +11,12 @@ Promise.all([
   players.players
     .map((player) => player.name)
     .forEach((playerName) => {
-      const elo = players.players[playerName].elo;
       const statistics = getStatisticsFor(playerName);
       playerStatistics.set(playerName, {
         played: statistics.played,
         won: statistics.won + statistics.draw / 2,
-       
+        elo : 1200,
       });
-     console.log(elo)
     });
 
   const leaderboard = new Map(

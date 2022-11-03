@@ -1,5 +1,19 @@
 {"matches":[
       {
+      "white": { "name": "Brice" },
+      "black": { "name": "Mathieu" },
+      "winner": "black",
+      "date": "03/11",
+      "opening": "Englund Gambit"
+      },  
+      {
+      "black": { "name": "Brice" },
+      "white": { "name": "Lorrys" },
+      "winner": "white",
+      "date": "03/11",
+      "opening": "King's Pawn Opening"
+      },  
+      {
       "white": { "name": "Aurélien" },
       "black": { "name": "Lorrys" },
       "winner": "white",
@@ -10,28 +24,28 @@
       "black": { "name": "Aurélien" },
       "white": { "name": "Lorrys" },
       "winner": "black",
-      "date": "01/11",
+      "date": "02/11",
       "opening": "King's Pawn Opening"
       },
       {
       "white": { "name": "Alexandre L" },
       "black": { "name": "Mathieu" },
       "winner": "black",
-      "date": "01/11",
+      "date": "02/11",
       "opening": "Défense Scandinave"
       },
       {
       "black": { "name": "Matthieu" },
       "white": { "name": "Mathieu" },
       "winner": "white",
-      "date": "01/11",
+      "date": "02/11",
       "opening": "King's Pawn Opening"
       },
       {
       "black": { "name": "Mathieu" },
       "white": { "name": "Aurélien" },
       "winner": "Draw",
-      "date": "01/11",
+      "date": "02/11",
       "opening": "Défense Scandinave"
       },
       {

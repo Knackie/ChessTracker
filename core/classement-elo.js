@@ -59,7 +59,7 @@ fetch(config.sources.players)
 		  }
 		}
 		const leaderboard = new Map(
-    [...player.entries()].sort((a, b) => {
+    player.sort((a, b) => {
       return b[1].won - a[1].won;
     })
   );

@@ -21,16 +21,13 @@ fetch(config.sources.players)
 				{
 					whiteIndex = j;
 					console.log(whiteIndex);
-					console.log("whiteIndex");
 					whiteElo = player.players[whiteIndex].elo;
-					console.log("whiteElo");
 					console.log(whiteElo);
 				}
 				else if (player.players[j].name == data.matches[i].black.name) 
 				{
 					blackIndex = j;
 					console.log(blackIndex);
-					console.log("blackIndex");
 					blackElo = player.players[j].elo;
 					console.log(blackElo);
 				}
@@ -42,6 +39,8 @@ fetch(config.sources.players)
 			console.log(oddsBlack);
 			console.log(oddsWhite);
 		  if (data.matches[i].winner == "Draw") {
+			blackElo = blackElo + 20 * (0.5 - oddsBlack);
+			whiteElo = whiteElo + 20 * (0.5 - oddsWhite);
 			beginClassement = "Égalité de <a href='players/";
 			beginClassement += data.matches[i].white.name;
 			beginClassement += "'>";
@@ -54,6 +53,8 @@ fetch(config.sources.players)
 			beginClassement += "</a>";
 		  } else if ([data.matches[i].winner] != "Draw") {
 			if (data.matches[i].winner == "white") {
+			  whiteElo = whiteElo + 20 * (1 - oddsBlack);
+			  blackElo = blackElo + 20 * (0 - oddsWhite);
 			  beginClassement = "Victoire de <a href='players/";
 			  beginClassement += data.matches[i].white.name;
 			  beginClassement += "'>";
@@ -64,6 +65,8 @@ fetch(config.sources.players)
 			  beginClassement += data.matches[i].black.name;
 			  beginClassement += "</a>";
 			} else {
+			  blackElo = blackElo + 20 * (1 - oddsBlack);
+			  whiteElo = whiteElo + 20 * (0 - oddsWhite);
 			  beginClassement = "Victoire de <a href='players/";
 			  beginClassement += data.matches[i].black.name;
 			  beginClassement += "'>";
@@ -79,7 +82,12 @@ fetch(config.sources.players)
 		  beginClassement += data.matches[i].date;
 		  beginClassement += " ouverture : ";
 		  beginClassement += data.matches[i].opening;
-
+		  player.players[whiteIndex].elo = whiteElo;
+		  player.players[blackIndex].elo = blackElo;
+		  beginClassement += "Elo blanc : ";
+		  beginClassement += player.players[whiteIndex].elo;
+		  beginClassement += "Elo noir : ";
+		  beginClassement += player.players[blackIndex].elo;
 		  var divId = "div" + i;
 		  var divId = "div" + i;
 		  var tag = document.createElement(divId);

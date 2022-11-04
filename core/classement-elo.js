@@ -14,7 +14,7 @@ fetch(config.sources.players)
 		var blackElo;
 		var whiteElo;
 
-		for (let i = 0; i < Object.keys(data.matches).length; i++) {
+		for (let i = Object.keys(data.matches).length - 1; i >= 0; i--) {
 			console.log(player);
 			for (let j = 0; j <  Object.keys(player.players).length; j++)
 				if (player.players[j].name == data.matches[i].white.name) 

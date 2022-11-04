@@ -1,99 +1,100 @@
-const getJson = (url) => fetch(url).then((result) => result.json());
+var player;
+fetch(config.sources.players)
+  .then((response) => response.json())
+  .then((p) => {
+    player = p;
+    console.log(player);
 
-Promise.all([
-  getJson(config.sources.matches),
-  getJson(config.sources.players),
-]).then(([matches, players]) => {
-  const getStatisticsFor = getStatisticsOn(matches.matches);
+	fetch(config.sources.matches)
+	  .then((response) => response.json())
+	  .then((data) => {
+		var beginClassement;
+		var whiteIndex;
+		var blackIndex;
+		var blackElo;
+		var whiteElo;
 
-  const playerStatistics = new Map();
+		for (let i = 0; i < Object.keys(data.matches).length; i++) {
+			console.log(player);
+			for (let j = 0; j <  Object.keys(player.players).length; j++)
+				if (player.players[j].name == data.matches[i].white.name) 
+				{
+					whiteIndex = j;
+					console.log(whiteIndex);
+					console.log("whiteIndex");
+					whiteElo = player.players[whiteIndex].elo;
+					console.log("whiteElo");
+					console.log(whiteElo);
+				}
+				else if (player.players[j].name == data.matches[i].black.name) 
+				{
+					blackIndex = j;
+					console.log(blackIndex);
+					console.log("blackIndex");
+					blackElo = player.players[j].elo;
+					console.log(blackElo);
+				}
+			
+			var odds = Math.pow(10, (whiteElo - blackElo)/400);
+			console.log(odds);
+			var oddsBlack = 1/(1+odds);
+			var oddsWhite = 1 - oddsBlack;
+			console.log(oddsBlack);
+			console.log(oddsWhite);
+		  if (data.matches[i].winner == "Draw") {
+			beginClassement = "Égalité de <a href='players/";
+			beginClassement += data.matches[i].white.name;
+			beginClassement += "'>";
+			beginClassement += data.matches[i].white.name;
+			beginClassement += "</a>";
+			beginClassement += " avec les blancs contre <a href='players/";
+			beginClassement += data.matches[i].black.name;
+			beginClassement += "'>";
+			beginClassement += data.matches[i].black.name;
+			beginClassement += "</a>";
+		  } else if ([data.matches[i].winner] != "Draw") {
+			if (data.matches[i].winner == "white") {
+			  beginClassement = "Victoire de <a href='players/";
+			  beginClassement += data.matches[i].white.name;
+			  beginClassement += "'>";
+			  beginClassement += data.matches[i].white.name;
+			  beginClassement += "</a> avec les blancs contre <a href='players/";
+			  beginClassement += data.matches[i].black.name;
+			  beginClassement += "'>";
+			  beginClassement += data.matches[i].black.name;
+			  beginClassement += "</a>";
+			} else {
+			  beginClassement = "Victoire de <a href='players/";
+			  beginClassement += data.matches[i].black.name;
+			  beginClassement += "'>";
+			  beginClassement += data.matches[i].black.name;
+			  beginClassement += "</a> avec les noirs contre <a href='players/";
+			  beginClassement += data.matches[i].white.name;
+			  beginClassement += "'>";
+			  beginClassement += data.matches[i].white.name;
+			  beginClassement += "</a>";
+			}
+		  }
+		  beginClassement += " le ";
+		  beginClassement += data.matches[i].date;
+		  beginClassement += " ouverture : ";
+		  beginClassement += data.matches[i].opening;
 
-  players.players
-    .map((player) => player.name)
-    .forEach((playerName) => {
-      const statistics = getStatisticsFor(playerName);
-      playerStatistics.set(playerName, {
-        played: statistics.played,
-        won: statistics.won + statistics.draw / 2,
-        elo : "1200",
-      });
-    console.log(playerStatistics.elo);
-    });
+		  var divId = "div" + i;
+		  var divId = "div" + i;
+		  var tag = document.createElement(divId);
 
-  const leaderboard = new Map(
-    [...playerStatistics.entries()].sort((a, b) => {
-      return b[1].won - a[1].won;
-    })
-  );
+		  var text = document.createTextNode("joueur1");
 
-  let rank = 0;
-  let rankMap = [];
-  for (const [player, statistics] of leaderboard.entries()) {
-    const { played, won } = statistics;
-    rankMap.push("element-"+rank);
-    createRankEl(rank++, player, played, won, player.elo);
-  }
-  console.log(rankMap)
-  console.log("rankMap")
-});
+		  var refJoueur1 = document.createTextNode("joueur1");
+		  var beginClassementRef = document.createTextNode(beginClassement);
 
-const getStatisticsOn = (matches) => {
-  return function (playerName) {
-    return matches
-      .filter(
-        (match) =>
-          match.black.name === playerName || match.white.name === playerName
-      )
-      .reduce(
-        (statistics, match) => {
-          const winner = match.winner;
+		  tag.appendChild(beginClassementRef);
 
-          const isDraw = winner.toLowerCase() === "draw";
-          if (isDraw) {
-            return {
-              ...statistics,
-              played: statistics.played + 1,
-              draw: statistics.draw + 1,
-            };
-          }
-
-          const isWon = match[winner].name === playerName;
-          return isWon
-            ? {
-                ...statistics,
-                played: statistics.played + 1,
-                won: statistics.won + 1,
-              }
-            : {
-                ...statistics,
-                played: statistics.played + 1,
-              };
-        },
-        { played: 0, won: 0, draw: 0 }
-      );
-  };
-};
-
-const getIconFor = (rank) => {
-  if (rank === 0) return "🥇";
-  if (rank === 1) return "🥈";
-  if (rank === 2) return "🥉";
-  else return (++rank).toString();
-};
-
-const createRankEl = (rank, playerName, gamesPlayed, gamesWon, elo) => {
-  const rankingText = `${getIconFor(
-    rank
-  )} ${playerName} ${gamesWon} / ${gamesPlayed} - ${elo}`;
-  const text = document.createTextNode(rankingText);
-  const tag = document.createElement("div");
-  tag.id = "classement-" + rank;
-  tag.classList.add("shadow");
-  tag.onclick = () => navigateToPlayerDetailsScoreboard(tag, playerName);
-  tag.style = "cursor: pointer";
-  tag.appendChild(text);
-
-  const element = document.getElementById("Classement-elo");
-  element.appendChild(tag);
-
-};
+		  tag.classList.add("shadow");
+		  var element = document.getElementById("Classement-elo");
+		  element.appendChild(tag);
+		  document.querySelector(divId).innerHTML = beginClassement;
+		}
+	  });
+  });

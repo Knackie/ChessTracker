@@ -88,8 +88,8 @@ fetch(config.sources.players)
 		  beginClassement += data.matches[i].date;
 		  beginClassement += " ouverture : ";
 		  beginClassement += data.matches[i].opening;
-		  player.players[whiteIndex].elo = whiteElo;
-		  player.players[blackIndex].elo = blackElo;
+		  player.players[whiteIndex].elo = Math.floor(whiteElo);
+		  player.players[blackIndex].elo = Math.floor(blackElo);
 		  beginClassement += "Elo blanc : ";
 		  beginClassement += player.players[whiteIndex].elo;
 		  beginClassement += "Elo noir : ";

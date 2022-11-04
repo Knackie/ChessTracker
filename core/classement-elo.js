@@ -58,7 +58,7 @@ fetch(config.sources.players)
 			}
 		  }
 		}
-		const leaderboard = new Map(player.sort());
+		const leaderboard = new Map(player);
 
   let rank = 0;
   let rankMap = [];

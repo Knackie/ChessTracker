@@ -49,7 +49,8 @@ fetch(config.sources.players)
 			  blackElo = blackElo + 20 * (0 - oddsWhite);
 			console.log(whiteElo);
 			console.log(blackElo); 
-			} else {
+			} 
+			  else {
 			  blackElo = blackElo + 20 * (1 - oddsBlack);
 			  whiteElo = whiteElo + 20 * (0 - oddsWhite);
 			console.log(whiteElo);
@@ -57,10 +58,7 @@ fetch(config.sources.players)
 			}
 		  }
 		}
-	  });
-  });
-
-const leaderboard = new Map(
+		const leaderboard = new Map(
     [...player.entries()].sort((a, b) => {
       return b[1].won - a[1].won;
     })
@@ -75,6 +73,9 @@ const leaderboard = new Map(
   console.log(rankMap)
   console.log("rankMap")
 });
+});
+
+
 
 const getIconFor = (rank) => {
   if (rank === 0) return "🥇";

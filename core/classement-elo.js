@@ -58,11 +58,7 @@ fetch(config.sources.players)
 			}
 		  }
 		}
-		const leaderboard = new Map(
-    player.sort(a, b) => {
-      return b[1].won - a[1].won;
-    })
-  );
+		const leaderboard = new Map(player.sort());
 
   let rank = 0;
   let rankMap = [];

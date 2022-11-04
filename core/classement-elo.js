@@ -112,3 +112,44 @@ fetch(config.sources.players)
 		}
 	  });
   });
+
+const leaderboard = new Map(
+    [...player.entries()].sort((a, b) => {
+      return b[1].won - a[1].won;
+    })
+  );
+
+  let rank = 0;
+  let rankMap = [];
+  for (const [player, elo] of leaderboard.entries()) {
+    rankMap.push("element-"+rank);
+    createRankEl(rank++, player, elo);
+  }
+  console.log(rankMap)
+  console.log("rankMap")
+});
+
+const getIconFor = (rank) => {
+  if (rank === 0) return "🥇";
+  if (rank === 1) return "🥈";
+  if (rank === 2) return "🥉";
+  else return (++rank).toString();
+};
+
+const createRankEl = (rank, playerName, elo) => {
+  const rankingText = `${getIconFor(
+    rank
+  )} ${playerName} ${elo}`;
+  const text = document.createTextNode(rankingText);
+  const tag = document.createElement("div");
+  tag.id = "classement-" + rank;
+  tag.classList.add("shadow");
+  tag.onclick = () => navigateToPlayerDetailsScoreboard(tag, playerName);
+  tag.style = "cursor: pointer";
+  tag.appendChild(text);
+
+  const element = document.getElementById("Classement");
+  element.appendChild(tag);
+	
+};
+

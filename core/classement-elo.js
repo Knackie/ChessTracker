@@ -60,15 +60,16 @@ fetch(config.sources.players)
 		}
 			let rank = 0;
   let rankMap = [];
+  const currentRank = new Map()
   for (let j = 0; j <  Object.keys(player.players).length; j++) {
-    rankMap.push("element-"+rank);
-    createRankEl(rank++, player.players[j].name, player.players[j].elo);
+	currentRank.set(player.players[j].name, player.players[j].elo)
   }
-  console.log(rankMap)
-  console.log("rankMap")
-
-
-
+  const sortNumAsc = new Map([...currentRank.entries()].sort((a, b) => b[1] - a[1]));
+  console.log(sortNumAsc);
+ for (const [player, elo] of sortNumAsc.entries()) {
+    rankMap.push("element-"+rank);
+    createRankEl(rank++, player, elo);
+  }
  }); 
 });
 

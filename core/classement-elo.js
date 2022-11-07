@@ -39,20 +39,20 @@ fetch(config.sources.players)
 			console.log(oddsBlack);
 			console.log(oddsWhite);
 		  if (data.matches[i].winner == "Draw") {
-			blackElo = blackElo + 20 * (0.5 - oddsBlack);
-			whiteElo = whiteElo + 20 * (0.5 - oddsWhite);
+			player.players[blackIndex].elo = blackElo + 20 * (0.5 - oddsBlack);
+			player.players[whiteIndex].elo = whiteElo + 20 * (0.5 - oddsWhite);
 			console.log(whiteElo);
 			console.log(blackElo);  
 		  } else if ([data.matches[i].winner] != "Draw") {
 			if (data.matches[i].winner == "white") {
-			  whiteElo = whiteElo + 20 * (1 - oddsBlack);
-			  blackElo = blackElo + 20 * (0 - oddsWhite);
+			  player.players[whiteIndex].elo = whiteElo + 20 * (1 - oddsBlack);
+			  player.players[blackIndex].elo = blackElo + 20 * (0 - oddsWhite);
 			console.log(whiteElo);
 			console.log(blackElo); 
 			} 
 			  else {
-			  blackElo = blackElo + 20 * (1 - oddsBlack);
-			  whiteElo = whiteElo + 20 * (0 - oddsWhite);
+			  player.players[blackIndex].elo = blackElo + 20 * (1 - oddsBlack);
+			  player.players[whiteIndex].elo = whiteElo + 20 * (0 - oddsWhite);
 			console.log(whiteElo);
 			console.log(blackElo); 
 			}

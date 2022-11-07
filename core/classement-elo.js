@@ -63,7 +63,7 @@ fetch(config.sources.players)
   let rankMap = [];
   for (let j = 0; j <  Object.keys(player.players).length; j++) {
     rankMap.push("element-"+rank);
-    createRankEl(rank++, player.players[i].name, player.players[i].elo);
+    createRankEl(rank++, player.players[j].name, player.players[j].elo);
   }
   console.log(rankMap)
   console.log("rankMap")

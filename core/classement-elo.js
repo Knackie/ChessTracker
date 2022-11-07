@@ -57,6 +57,7 @@ fetch(config.sources.players)
 			console.log(blackElo); 
 			}
 		  }
+		}
 			let rank = 0;
   let rankMap = [];
   for (let j = 0; j <  Object.keys(player.players).length; j++) {
@@ -66,7 +67,7 @@ fetch(config.sources.players)
   console.log(rankMap)
   console.log("rankMap")
 
-		}
+
 
  }); 
 });

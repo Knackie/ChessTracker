@@ -58,13 +58,12 @@ fetch(config.sources.players)
 			}
 		  }
 		}
-		const leaderboard = new Map(player);
 
   let rank = 0;
   let rankMap = [];
-  for (const [player, elo] of leaderboard.entries()) {
+  for (let j = 0; j <  Object.keys(player.players).length; j++) {
     rankMap.push("element-"+rank);
-    createRankEl(rank++, player, elo);
+    createRankEl(rank++, player.players[i].name, player.players[i].elo);
   }
   console.log(rankMap)
   console.log("rankMap")

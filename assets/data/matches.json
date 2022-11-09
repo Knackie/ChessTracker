@@ -2,6 +2,48 @@
       {
       "white": { "name": "Mathieu" },
       "black": { "name": "Aurélien" },
+      "winner": "black",
+      "date": "09/11",
+      "opening": "Ruy Lopèz"
+      }, 
+      {
+      "black": { "name": "Mathieu" },
+      "white": { "name": "Aurélien" },
+      "winner": "white",
+      "date": "09/11",
+      "opening": "Défense Scandinave"
+      }, 
+      {
+      "white": { "name": "Aurélien" },
+      "black": { "name": "Lorrys" },
+      "winner": "black",
+      "date": "09/11",
+      "opening": "Défense Scandinave"
+      }, 
+      {
+      "white": { "name": "Mathieu" },
+      "black": { "name": "Lorrys" },
+      "winner": "white",
+      "date": "09/11",
+      "opening": "Défense Scandinave"
+      }, 
+      {
+      "black": { "name": "Mathieu" },
+      "white": { "name": "Lorrys" },
+      "winner": "black",
+      "date": "09/11",
+      "opening": "Défense Scandinave"
+      }, 
+      {
+      "white": { "name": "Mathieu" },
+      "black": { "name": "Lorrys" },
+      "winner": "white",
+      "date": "09/11",
+      "opening": "Défense Scandinave"
+      }, 
+      {
+      "white": { "name": "Mathieu" },
+      "black": { "name": "Aurélien" },
       "winner": "Draw",
       "date": "08/11",
       "opening": "Ruy Lopèz"

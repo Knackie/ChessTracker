@@ -2,6 +2,20 @@
       {
       "white": { "name": "Mathieu" },
       "black": { "name": "Aurélien" },
+      "winner": "white",
+      "date": "10/11",
+      "opening": "Philidor Défense"
+      }, 
+      {
+      "black": { "name": "Mathieu" },
+      "white": { "name": "Aurélien" },
+      "winner": "black",
+      "date": "10/11",
+      "opening": "Petrov's Défense"
+      }, 
+      {
+      "white": { "name": "Mathieu" },
+      "black": { "name": "Aurélien" },
       "winner": "black",
       "date": "09/11",
       "opening": "Ruy Lopèz"

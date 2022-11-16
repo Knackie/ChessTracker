@@ -1,6 +1,20 @@
 {"matches":[
       {
       "white": { "name": "Mathieu" },
+      "black": { "name": "Lorrys" },
+      "winner": "white",
+      "date": "16/11",
+      "opening": "Philidor Défense"
+      }, 
+      {
+      "black": { "name": "Mathieu" },
+      "white": { "name": "Aurélien" },
+      "winner": "black",
+      "date": "16/11",
+      "opening": "Défense Scandinave"
+      }, 
+      {
+      "white": { "name": "Mathieu" },
       "black": { "name": "Aurélien" },
       "winner": "white",
       "date": "10/11",

@@ -4,6 +4,27 @@
       "black": { "name": "Lorrys" },
       "winner": "white",
       "date": "16/11",
+      "opening": "Ruy Lopèz"
+      },
+      {
+      "black": { "name": "Mathieu" },
+      "white": { "name": "Lorrys" },
+      "winner": "white",
+      "date": "17/11",
+      "opening": "Défense Scandinave"
+      }, 
+      {
+      "white": { "name": "Mathieu" },
+      "black": { "name": "Lorrys" },
+      "winner": "black",
+      "date": "16/11",
+      "opening": "Défense Scandinave"
+      },
+      {
+      "white": { "name": "Mathieu" },
+      "black": { "name": "Lorrys" },
+      "winner": "white",
+      "date": "16/11",
       "opening": "Philidor Défense"
       }, 
       {

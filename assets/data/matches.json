@@ -2,14 +2,14 @@
        {
       "black": { "name": "Mathieu" },
       "white": { "name": "Louis" },
-      "winner": "white",
+      "winner": "black",
       "date": "05/04",
       "opening": "Pirc Defense"
       },
        {
       "white": { "name": "Mathieu" },
       "black": { "name": "Louis" },
-      "winner": "white",
+      "winner": "black",
       "date": "05/04",
       "opening": "French Defense"
       },

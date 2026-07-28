@@ -44,29 +44,49 @@ fetch(config.sources.players)
           console.log("gamesPlayed");
           console.log(gamesPlayed);
         }
-        for (let i = 0; i < 3; i++) {
-          if ([data.matches[i].winner] != "Draw") {
-            var affichageWin = "Victoire de ";
-            affichageWin += data.matches[i][data.matches[i].winner].name;
+        // Convertit une date du type JJ/MM/AAAA en une valeur comparable
+        const toComparableDate = (dateText) => {
+          if (!dateText) return 0;
 
-            if (data.matches[i].winner == "white") {
+          const [day, month, year] = String(dateText).split("/").map(Number);
+          if (!day || !month || !year) return 0;
+
+          return new Date(year, month - 1, day).getTime();
+        };
+
+        // Trie les matchs du plus récent au plus ancien, puis garde les 3 premiers
+        const recentMatches = [...data.matches]
+          .sort((a, b) => toComparableDate(b.date) - toComparableDate(a.date))
+          .slice(0, 3);
+
+        for (let i = 0; i < recentMatches.length; i++) {
+          const match = recentMatches[i];
+          if (match.winner.toLowerCase() !== "draw") {
+            var affichageWin = "Victoire de ";
+            affichageWin += match[match.winner].name;
+
+            if (match.winner == "white") {
               affichageWin += " avec les blancs contre ";
-              affichageWin += data.matches[i].black.name;
+              affichageWin += match.black.name;
             } else {
               affichageWin += " avec les noirs contre ";
-              affichageWin += data.matches[i].white.name;
+              affichageWin += match.white.name;
             }
           } else {
             var affichageWin = "Égalité de ";
-            affichageWin += data.matches[i].white.name;
+            affichageWin += match.white.name;
             affichageWin += " avec les blancs contre ";
-            affichageWin += data.matches[i].black.name;
+            affichageWin += match.black.name;
           }
           affichageWin += " le ";
-          affichageWin += data.matches[i].date;
+          affichageWin += match.date;
           affichageWin += " ouverture : ";
-          affichageWin += data.matches[i].opening;
-          document.querySelector("#HistoFirst" + i).innerText = affichageWin;
+          affichageWin += match.opening;
+
+          const container = document.querySelector("#HistoFirst" + i);
+          if (container) {
+            container.innerHTML = `<div class="card border-0 shadow-sm h-100"><div class="card-body"><p class="mb-0">${affichageWin}</p></div></div>`;
+          }
         }
 
         max = 0;
@@ -77,28 +97,32 @@ fetch(config.sources.players)
         console.log("sortedAsc");
 
         const firstValue = Array.from(sortedAsc.keys())[0];
-        document.querySelector("#First").innerText += firstValue;
+        const renderTopCard = (elementId, rankIndex, label) => {
+          const container = document.querySelector(elementId);
+          if (!container) return;
 
-        var pourcent = " " + gamesWon.get(Array.from(sortedAsc.keys())[0]);
-        pourcent += " / ";
-        pourcent += gamesPlayed.get(Array.from(sortedAsc.keys())[0]);
-        document.querySelector("#First").innerText += pourcent;
-        document.querySelector("#Second").innerText += Array.from(
-          sortedAsc.keys()
-        )[1];
-        pourcent = " " + gamesWon.get(Array.from(sortedAsc.keys())[1]);
-        pourcent += " / ";
-        pourcent += gamesPlayed.get(Array.from(sortedAsc.keys())[1]);
+          const playerName = Array.from(sortedAsc.keys())[rankIndex];
+          const wins = gamesWon.get(playerName);
+          const played = gamesPlayed.get(playerName);
+          container.innerHTML = `
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <h3 class="h6 mb-1">${label}</h3>
+                    <p class="fw-bold mb-1">${playerName}</p>
+                    <p class="text-muted mb-0">${wins} victoires / ${played} parties</p>
+                  </div>
+                  <span class="badge bg-primary rounded-pill">#${rankIndex + 1}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        };
 
-        document.querySelector("#Second").innerText += pourcent;
-        document.querySelector("#Third").innerText += Array.from(
-          sortedAsc.keys()
-        )[2];
-        pourcent = " " + gamesWon.get(Array.from(sortedAsc.keys())[2]);
-        pourcent += " / ";
-        pourcent += gamesPlayed.get(Array.from(sortedAsc.keys())[2]);
-
-        document.querySelector("#Third").innerText += pourcent;
+        renderTopCard("#First", 0, "🥇 Premier");
+        renderTopCard("#Second", 1, "🥈 Deuxième");
+        renderTopCard("#Third", 2, "🥉 Troisième");
         console.log(data);
 
         registerIndexListeners();

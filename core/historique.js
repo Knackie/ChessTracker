@@ -49,18 +49,12 @@ fetch(config.sources.matches)
       var divId = "div" + i;
       console.log(joueur1);
       var divId = "div" + i;
-      var tag = document.createElement(divId);
+      var tag = document.createElement("div");
+      tag.id = divId;
+      tag.classList.add("card", "border-0", "shadow-sm", "p-3");
+      tag.innerHTML = `<div class="small text-muted mb-2">${data.matches[i].date}</div><div>${beginClassement}</div>`;
 
-      var text = document.createTextNode(joueur1);
-
-      var refJoueur1 = document.createTextNode(joueur1);
-      var beginClassementRef = document.createTextNode(beginClassement);
-
-      tag.appendChild(beginClassementRef);
-
-      tag.classList.add("shadow");
       var element = document.getElementById("Classement");
       element.appendChild(tag);
-      document.querySelector(divId).innerHTML = beginClassement;
     }
   });

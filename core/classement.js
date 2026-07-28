@@ -80,16 +80,19 @@ const getIconFor = (rank) => {
 };
 
 const createRankEl = (rank, playerName, gamesPlayed, gamesWon) => {
-  const rankingText = `${getIconFor(
-    rank
-  )} ${playerName} ${gamesWon} / ${gamesPlayed}`;
-  const text = document.createTextNode(rankingText);
   const tag = document.createElement("div");
   tag.id = "classement-" + rank;
-  tag.classList.add("shadow");
+  tag.classList.add("card", "border-0", "shadow-sm", "p-3", "mb-3", "cursor-pointer");
   tag.onclick = () => navigateToPlayerDetailsScoreboard(tag, playerName);
-  tag.style = "cursor: pointer";
-  tag.appendChild(text);
+  tag.innerHTML = `
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <div class="fw-bold">${getIconFor(rank)} ${playerName}</div>
+        <div class="text-muted small">${gamesWon} victoires / ${gamesPlayed} parties</div>
+      </div>
+      <span class="badge bg-primary rounded-pill">#${rank + 1}</span>
+    </div>
+  `;
 
   const element = document.getElementById("Classement");
   element.appendChild(tag);

@@ -1,12 +1,7 @@
 const htmlBodyHistory = [];
 
 onpopstate = (_event) => {
-  const previousPage = htmlBodyHistory.pop();
-
-  if (previousPage) {
-    document.body.innerHTML = previousPage;
-    registerIndexListeners();
-  }
+  window.location.reload();
 };
 
 const registerIndexListeners = () => {
@@ -63,18 +58,19 @@ const replaceBodyWith = (template) => {
   htmlBodyHistory.push(document.body.innerHTML);
 
   const navbarTemplate = `
-    <div class="w3-bar w3-green">
-      <a href="/ChessTracker" class="w3-bar-item w3-button">Accueil</a>
-      <a href="classement" class="w3-bar-item w3-button">Classement</a>
-      <a href="historique" class="w3-bar-item w3-button">Historique</a>
-      <a href="classement par mat-élo" class="w3-bar-item w3-button">Matelo</a>
-      <a
-        href="https://github.com/Knackie/ChessTracker"
-        class="w3-bar-item w3-button"
-        >Github</a
-      >
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">♟️ Chess Tracker</a>
+        <div class="navbar-nav ms-auto">
+          <a class="nav-link" href="index.html">Accueil</a>
+          <a class="nav-link" href="classement.html">Classement</a>
+          <a class="nav-link" href="historique.html">Historique</a>
+          <a class="nav-link" href="matelo.html">Mat-élo</a>
+          <a class="nav-link" href="https://github.com/Knackie/ChessTracker" target="_blank" rel="noreferrer">Github</a>
+        </div>
+      </div>
+    </nav>
   `;
 
-  document.body.innerHTML = navbarTemplate + template;
+  document.body.innerHTML = navbarTemplate + `<main class="container py-4">${template}</main>`;
 };

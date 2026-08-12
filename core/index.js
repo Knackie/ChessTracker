@@ -8,41 +8,44 @@ fetch(config.sources.players)
     fetch(config.sources.matches)
       .then((response) => response.json())
       .then((data) => {
-        var won = 0;
-        var played = 0;
-        var draw = 0;
         const gamesWon = new Map();
         const gamesPlayed = new Map();
-        for (let y = 0; y < Object.keys(player.players).length; y++) {
-          console.log(player.players[y].name);
-          for (let i = 0; i < Object.keys(data.matches).length; i++) {
-            if (
-              data.matches[i].white.name == player.players[y].name ||
-              data.matches[i].black.name == player.players[y].name
-            ) {
-              played++;
+        const playerStats = new Map(
+          player.players.map((entry) => [entry.name, { played: 0, won: 0, draw: 0 }])
+        );
 
-              if (data.matches[i].winner == "Draw") {
-                draw++;
-              } else if ([data.matches[i].winner] != "Draw") {
-                if (
-                  data.matches[i][data.matches[i].winner].name ==
-                  player.players[y].name
-                ) {
-                  won++;
-                }
-              }
+        const matches = Array.isArray(data.matches) ? data.matches : [];
+        for (let i = 0; i < matches.length; i++) {
+          const match = matches[i];
+          const whiteName = match.white && match.white.name;
+          const blackName = match.black && match.black.name;
+
+          if (whiteName && playerStats.has(whiteName)) {
+            playerStats.get(whiteName).played += 1;
+          }
+          if (blackName && playerStats.has(blackName)) {
+            playerStats.get(blackName).played += 1;
+          }
+
+          const winner = String(match.winner || "").toLowerCase();
+          if (winner === "draw") {
+            if (whiteName && playerStats.has(whiteName)) {
+              playerStats.get(whiteName).draw += 1;
+            }
+            if (blackName && playerStats.has(blackName)) {
+              playerStats.get(blackName).draw += 1;
+            }
+          } else if ((winner === "white" || winner === "black") && match[winner] && match[winner].name) {
+            const winnerName = match[winner].name;
+            if (playerStats.has(winnerName)) {
+              playerStats.get(winnerName).won += 1;
             }
           }
-          won = won + draw / 2;
-          gamesWon.set(player.players[y].name, won);
-          gamesPlayed.set(player.players[y].name, played);
-          won = 0;
-          played = 0;
-          draw = 0;
-          console.log("draw");
-          console.log("gamesPlayed");
-          console.log(gamesPlayed);
+        }
+
+        for (const [playerName, stats] of playerStats.entries()) {
+          gamesWon.set(playerName, stats.won + stats.draw / 2);
+          gamesPlayed.set(playerName, stats.played);
         }
         const eloDeltasByMatchIndex = EloUtils.computeEloDeltas(
           player.players,
@@ -102,7 +105,6 @@ fetch(config.sources.players)
         console.log(sortedAsc);
         console.log("sortedAsc");
 
-        const firstValue = Array.from(sortedAsc.keys())[0];
         const renderTopCard = (elementId, rankIndex, label) => {
           const container = document.querySelector(elementId);
           if (!container) return;

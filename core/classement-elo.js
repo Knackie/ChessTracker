@@ -4,14 +4,32 @@ Promise.all([
 	fetch(config.sources.players).then((response) => response.json()),
 	fetch(config.sources.matches).then((response) => response.json()),
 ]).then(([playersData, matchesData]) => {
+  const matches = Array.isArray(matchesData.matches) ? matchesData.matches : [];
+  const playedCountByPlayer = new Map();
+
+  for (let i = 0; i < matches.length; i++) {
+    const match = matches[i];
+    const whiteName = match && match.white && match.white.name;
+    const blackName = match && match.black && match.black.name;
+
+    if (whiteName) {
+      playedCountByPlayer.set(whiteName, (playedCountByPlayer.get(whiteName) || 0) + 1);
+    }
+    if (blackName) {
+      playedCountByPlayer.set(blackName, (playedCountByPlayer.get(blackName) || 0) + 1);
+    }
+  }
+
 	const ratings = EloUtils.computeEloDeltas(
 		playersData.players,
-		matchesData.matches,
+    matches,
 		{ kFactor: K_FACTOR }
 	).finalRatings;
 
 	const sortedRatings = new Map(
-		[...ratings.entries()].sort((a, b) => b[1] - a[1])
+    [...ratings.entries()]
+      .filter(([playerName]) => (playedCountByPlayer.get(playerName) || 0) > 0)
+      .sort((a, b) => b[1] - a[1])
 	);
 
 	let rank = 0;

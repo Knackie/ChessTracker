@@ -12,6 +12,10 @@ Promise.all([
     .map((player) => player.name)
     .forEach((playerName) => {
       const statistics = getStatisticsFor(playerName);
+      if (statistics.played === 0) {
+        return;
+      }
+
       playerStatistics.set(playerName, {
         played: statistics.played,
         won: statistics.won + statistics.draw / 2,

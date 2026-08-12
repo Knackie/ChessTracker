@@ -95,7 +95,9 @@ fetch(config.sources.players)
 
         max = 0;
         const sortedAsc = new Map(
-          [...gamesWon.entries()].sort((a, b) => b[1] - a[1])
+          [...gamesWon.entries()]
+            .filter(([playerName]) => (gamesPlayed.get(playerName) || 0) > 0)
+            .sort((a, b) => b[1] - a[1])
         );
         console.log(sortedAsc);
         console.log("sortedAsc");
@@ -106,6 +108,18 @@ fetch(config.sources.players)
           if (!container) return;
 
           const playerName = Array.from(sortedAsc.keys())[rankIndex];
+          if (!playerName) {
+            container.innerHTML = `
+              <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                  <h3 class="h6 mb-1">${label}</h3>
+                  <p class="text-muted mb-0">Aucune partie jouee</p>
+                </div>
+              </div>
+            `;
+            return;
+          }
+
           container.dataset.playerName = playerName;
           const wins = gamesWon.get(playerName);
           const played = gamesPlayed.get(playerName);

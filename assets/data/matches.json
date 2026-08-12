@@ -12,6 +12,13 @@
       "winner": "white",
       "date": "11/08",
       "opening": "d4d5"
+      },
+       {
+      "white": { "name": "Mathieu" },
+      "black": { "name": "Claude" },
+      "winner": "white",
+      "date": "11/08",
+      "opening": "viennoise"
       }
   ]
 }

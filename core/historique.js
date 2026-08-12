@@ -1,36 +1,54 @@
-fetch(config.sources.matches)
-  .then((response) => response.json())
-  .then((data) => {
+Promise.all([
+  fetch(config.sources.matches).then((response) => response.json()),
+  fetch(config.sources.players).then((response) => response.json()),
+]).then(([matchesData, playersData]) => {
     var beginClassement;
     const getPlayerLink = (playerName) =>
       `<a href='joueur.html?name=${encodeURIComponent(playerName)}'>${playerName}</a>`;
 
-    for (let i = 0; i < Object.keys(data.matches).length; i++) {
+    const matches = Array.isArray(matchesData.matches) ? matchesData.matches : [];
+    const players = Array.isArray(playersData.players) ? playersData.players : [];
+    const orderedMatches = EloUtils.sortMatchesWithIndex(matches, "desc");
+    const eloDeltasByMatchIndex = EloUtils.computeEloDeltas(players, matches).deltasByMatchIndex;
+
+    const formatDelta = (delta) => {
+      const rounded = Math.round(delta);
+      return `${rounded >= 0 ? "+" : ""}${rounded}`;
+    };
+
+    for (let i = 0; i < orderedMatches.length; i++) {
+      const currentEntry = orderedMatches[i];
+      const currentMatch = currentEntry.match;
       var joueur1;
       var joueur2;
-      if (data.matches[i].winner == "Draw") {
+      if (currentMatch.winner == "Draw") {
         beginClassement = "Égalité de ";
-        beginClassement += getPlayerLink(data.matches[i].white.name);
+        beginClassement += getPlayerLink(currentMatch.white.name);
         console.log(joueur1);
         beginClassement += " avec les blancs contre ";
-        beginClassement += getPlayerLink(data.matches[i].black.name);
-      } else if ([data.matches[i].winner] != "Draw") {
-        if (data.matches[i].winner == "white") {
+        beginClassement += getPlayerLink(currentMatch.black.name);
+      } else if ([currentMatch.winner] != "Draw") {
+        if (currentMatch.winner == "white") {
           beginClassement = "Victoire de ";
-          beginClassement += getPlayerLink(data.matches[i].white.name);
+          beginClassement += getPlayerLink(currentMatch.white.name);
           beginClassement += " avec les blancs contre ";
-          beginClassement += getPlayerLink(data.matches[i].black.name);
+          beginClassement += getPlayerLink(currentMatch.black.name);
         } else {
           beginClassement = "Victoire de ";
-          beginClassement += getPlayerLink(data.matches[i].black.name);
+          beginClassement += getPlayerLink(currentMatch.black.name);
           beginClassement += " avec les noirs contre ";
-          beginClassement += getPlayerLink(data.matches[i].white.name);
+          beginClassement += getPlayerLink(currentMatch.white.name);
         }
       }
       beginClassement += " le ";
-      beginClassement += data.matches[i].date;
+      beginClassement += currentMatch.date;
       beginClassement += " ouverture : ";
-      beginClassement += data.matches[i].opening;
+      beginClassement += currentMatch.opening;
+
+      const deltas = eloDeltasByMatchIndex.get(currentEntry.index);
+      const eloLine = deltas
+        ? `<div class="small text-muted mt-2">Elo: Blancs ${formatDelta(deltas.whiteDelta)} | Noirs ${formatDelta(deltas.blackDelta)}</div>`
+        : "";
 
       var divId = "div" + i;
       console.log(joueur1);
@@ -38,7 +56,7 @@ fetch(config.sources.matches)
       var tag = document.createElement("div");
       tag.id = divId;
       tag.classList.add("card", "border-0", "shadow-sm", "p-3");
-      tag.innerHTML = `<div class="small text-muted mb-2">${data.matches[i].date}</div><div>${beginClassement}</div>`;
+      tag.innerHTML = `<div class="small text-muted mb-2">${currentMatch.date}</div><div>${beginClassement}</div>${eloLine}`;
 
       var element = document.getElementById("Classement");
       element.appendChild(tag);

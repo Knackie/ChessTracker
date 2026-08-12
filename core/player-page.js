@@ -86,14 +86,20 @@ const renderTableRows = (rowsTarget, entries) => {
     .join("");
 };
 
-const renderRecentMatches = (target, playerName, matches) => {
-  if (!matches.length) {
+const renderRecentMatches = (target, playerName, matchEntries, deltasByMatchIndex) => {
+  if (!matchEntries.length) {
     target.innerHTML = `<div class="text-muted">Aucune partie trouvée pour ce joueur.</div>`;
     return;
   }
 
-  target.innerHTML = matches
-    .map((match) => {
+  const formatDelta = (delta) => {
+    const rounded = Math.round(delta);
+    return `${rounded >= 0 ? "+" : ""}${rounded}`;
+  };
+
+  target.innerHTML = matchEntries
+    .map((entry) => {
+      const match = entry.match;
       const result = resolveResult(match, playerName);
       const label =
         result === "won"
@@ -112,6 +118,12 @@ const renderRecentMatches = (target, playerName, matches) => {
       const asWhite = match.white.name === playerName;
       const opponent = asWhite ? match.black.name : match.white.name;
       const color = asWhite ? "Blancs" : "Noirs";
+      const deltas = deltasByMatchIndex.get(entry.index);
+      const playerDelta = deltas
+        ? asWhite
+          ? deltas.whiteDelta
+          : deltas.blackDelta
+        : null;
 
       return `
         <div class="card border-0 shadow-sm">
@@ -119,6 +131,7 @@ const renderRecentMatches = (target, playerName, matches) => {
             <div>
               <div class="fw-bold">${escapeHtml(playerName)} vs ${escapeHtml(opponent)}</div>
               <div class="text-muted small">${escapeHtml(match.date || "Date inconnue")} • ${escapeHtml(match.opening || "Ouverture inconnue")} • ${color}</div>
+              ${playerDelta !== null ? `<div class="small text-muted mt-1">Variation Elo: ${formatDelta(playerDelta)}</div>` : ""}
             </div>
             <span class="badge ${badgeClass}">${label}</span>
           </div>
@@ -139,11 +152,21 @@ Promise.all([getJson(config.sources.matches), getJson(config.sources.players)])
     const allMatches = Array.isArray(matchesData.matches) ? matchesData.matches : [];
     const allPlayers = Array.isArray(playersData.players) ? playersData.players : [];
 
-    const playerMatches = allMatches.filter(
-      (match) => match.white && match.black && (match.white.name === playerName || match.black.name === playerName)
+    const eloDeltasByMatchIndex = EloUtils.computeEloDeltas(
+      allPlayers,
+      allMatches
+    ).deltasByMatchIndex;
+
+    const indexedPlayerMatches = allMatches
+      .map((match, index) => ({ match, index }))
+      .filter(
+        (entry) =>
+          entry.match.white &&
+          entry.match.black &&
+          (entry.match.white.name === playerName || entry.match.black.name === playerName)
     );
 
-    if (!playerMatches.length) {
+    if (!indexedPlayerMatches.length) {
       throw new Error("Aucune partie trouvée pour ce joueur.");
     }
 
@@ -156,7 +179,8 @@ Promise.all([getJson(config.sources.matches), getJson(config.sources.players)])
     const openings = new Map();
     const opponents = new Map();
 
-    playerMatches.forEach((match) => {
+    indexedPlayerMatches.forEach((entry) => {
+      const match = entry.match;
       const result = resolveResult(match, playerName);
       const playedAsWhite = match.white.name === playerName;
       const openingName = match.opening || "Inconnue";
@@ -200,11 +224,20 @@ Promise.all([getJson(config.sources.matches), getJson(config.sources.players)])
     renderTableRows(document.getElementById("openingRows"), openingEntries);
     renderTableRows(document.getElementById("opponentRows"), opponentEntries);
 
-    const recentMatches = [...playerMatches]
-      .sort((a, b) => toComparableDate(b.date) - toComparableDate(a.date))
+    const recentMatches = [...indexedPlayerMatches]
+      .sort((a, b) => {
+        const dateDelta = toComparableDate(b.match.date) - toComparableDate(a.match.date);
+        if (dateDelta !== 0) return dateDelta;
+        return b.index - a.index;
+      })
       .slice(0, 5);
 
-    renderRecentMatches(document.getElementById("recentMatches"), playerName, recentMatches);
+    renderRecentMatches(
+      document.getElementById("recentMatches"),
+      playerName,
+      recentMatches,
+      eloDeltasByMatchIndex
+    );
   })
   .catch((error) => {
     const title = document.getElementById("playerTitle");

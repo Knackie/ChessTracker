@@ -44,23 +44,23 @@ fetch(config.sources.players)
           console.log("gamesPlayed");
           console.log(gamesPlayed);
         }
-        // Convertit une date du type JJ/MM/AAAA en une valeur comparable
-        const toComparableDate = (dateText) => {
-          if (!dateText) return 0;
+        const eloDeltasByMatchIndex = EloUtils.computeEloDeltas(
+          player.players,
+          data.matches
+        ).deltasByMatchIndex;
 
-          const [day, month, year] = String(dateText).split("/").map(Number);
-          if (!day || !month || !year) return 0;
-
-          return new Date(year, month - 1, day).getTime();
+        const formatDelta = (delta) => {
+          const rounded = Math.round(delta);
+          return `${rounded >= 0 ? "+" : ""}${rounded}`;
         };
 
-        // Trie les matchs du plus récent au plus ancien, puis garde les 3 premiers
-        const recentMatches = [...data.matches]
-          .sort((a, b) => toComparableDate(b.date) - toComparableDate(a.date))
+        // Trie les matchs du plus récent au plus ancien puis privilégie le dernier ajouté en cas d'égalité
+        const recentMatches = EloUtils.sortMatchesWithIndex(data.matches, "desc")
           .slice(0, 3);
 
         for (let i = 0; i < recentMatches.length; i++) {
-          const match = recentMatches[i];
+          const match = recentMatches[i].match;
+          const deltas = eloDeltasByMatchIndex.get(recentMatches[i].index);
           if (match.winner.toLowerCase() !== "draw") {
             var affichageWin = "Victoire de ";
             affichageWin += match[match.winner].name;
@@ -82,6 +82,10 @@ fetch(config.sources.players)
           affichageWin += match.date;
           affichageWin += " ouverture : ";
           affichageWin += match.opening;
+
+          if (deltas) {
+            affichageWin += ` | Elo: Blancs ${formatDelta(deltas.whiteDelta)} / Noirs ${formatDelta(deltas.blackDelta)}`;
+          }
 
           const container = document.querySelector("#HistoFirst" + i);
           if (container) {

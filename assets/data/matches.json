@@ -17,7 +17,14 @@
       "white": { "name": "Mathieu" },
       "black": { "name": "Claude" },
       "winner": "white",
-      "date": "11/08",
+      "date": "12/08",
+      "opening": "viennoise"
+      },
+       {
+      "black": { "name": "Mathieu" },
+      "white": { "name": "Laurent" },
+      "winner": "black",
+      "date": "12/08",
       "opening": "viennoise"
       }
   ]

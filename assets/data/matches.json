@@ -5,6 +5,13 @@
       "winner": "black",
       "date": "27/07",
       "opening": "Scandinave"
+      },
+       {
+      "black": { "name": "Mathieu" },
+      "white": { "name": "Claude" },
+      "winner": "white",
+      "date": "11/08",
+      "opening": "d4d5"
       }
   ]
 }

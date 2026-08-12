@@ -1,7 +1,8 @@
 {
   "players": [
     { "name": "Fred", "elo":1399 },
-    { "name": "Mathieu", "elo":1599 },
-    { "name": "Claude", "elo":1199 }
+    { "name": "Mathieu", "elo":1399 },
+    { "name": "Claude", "elo":1399 },
+    { "name": "Laurent", "elo":1399 }
   ]
 }

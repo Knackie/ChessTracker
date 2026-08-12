@@ -33,3 +33,11 @@ body {
   transform: translateY(-2px);
   transition: transform 0.2s ease-in-out;
 }
+
+.token-hint {
+  border-left: 4px solid #f59e0b;
+}
+
+.status-box {
+  min-height: 3rem;
+}

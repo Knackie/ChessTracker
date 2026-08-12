@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <title>♟️ Profil joueur | Chess Tracker</title>
+  </head>
+
+  <body class="bg-light">
+    <div id="navbar"></div>
+
+    <main class="container py-4">
+      <section class="card border-0 shadow-sm p-4 mb-4">
+        <h1 id="playerTitle" class="h3 mb-2">Profil joueur</h1>
+        <p id="playerSubtitle" class="text-muted mb-0">Chargement des statistiques...</p>
+      </section>
+
+      <section id="playerSummary" class="row g-3 mb-4"></section>
+
+      <section class="card border-0 shadow-sm p-4 mb-4">
+        <h2 class="h5 mb-3">Statistiques par couleur</h2>
+        <div id="statsByColor" class="row g-3"></div>
+      </section>
+
+      <section class="card border-0 shadow-sm p-4 mb-4">
+        <h2 class="h5 mb-3">Statistiques par ouverture</h2>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0">
+            <thead>
+              <tr>
+                <th>Ouverture</th>
+                <th>Parties</th>
+                <th>Victoires</th>
+                <th>Nulles</th>
+                <th>Défaites</th>
+                <th>Score</th>
+              </tr>
+            </thead>
+            <tbody id="openingRows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card border-0 shadow-sm p-4 mb-4">
+        <h2 class="h5 mb-3">Statistiques contre les adversaires</h2>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0">
+            <thead>
+              <tr>
+                <th>Adversaire</th>
+                <th>Parties</th>
+                <th>Victoires</th>
+                <th>Nulles</th>
+                <th>Défaites</th>
+                <th>Score</th>
+              </tr>
+            </thead>
+            <tbody id="opponentRows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card border-0 shadow-sm p-4">
+        <h2 class="h5 mb-3">5 dernières parties</h2>
+        <div id="recentMatches" class="d-grid gap-3"></div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="core/config.js"></script>
+    <script src="core/nav.js"></script>
+    <script src="core/player-page.js"></script>
+  </body>
+</html>

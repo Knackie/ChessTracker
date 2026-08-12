@@ -102,6 +102,7 @@ fetch(config.sources.players)
           if (!container) return;
 
           const playerName = Array.from(sortedAsc.keys())[rankIndex];
+          container.dataset.playerName = playerName;
           const wins = gamesWon.get(playerName);
           const played = gamesPlayed.get(playerName);
           container.innerHTML = `

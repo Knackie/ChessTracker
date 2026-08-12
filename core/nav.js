@@ -23,6 +23,7 @@
             <a class="nav-link ${isActive('classement.html') ? 'active' : ''}" href="classement.html">Classement</a>
             <a class="nav-link ${isActive('historique.html') ? 'active' : ''}" href="historique.html">Historique</a>
             <a class="nav-link ${isActive('matelo.html') ? 'active' : ''}" href="matelo.html">Mat-élo</a>
+            <a class="nav-link ${isActive('ajouter-partie.html') ? 'active' : ''}" href="ajouter-partie.html">Ajouter une partie</a>
             <a class="nav-link" href="https://github.com/Knackie/ChessTracker" target="_blank" rel="noreferrer">Github</a>
           </div>
         </div>

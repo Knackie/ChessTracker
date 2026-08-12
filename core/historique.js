@@ -2,43 +2,29 @@ fetch(config.sources.matches)
   .then((response) => response.json())
   .then((data) => {
     var beginClassement;
+    const getPlayerLink = (playerName) =>
+      `<a href='joueur.html?name=${encodeURIComponent(playerName)}'>${playerName}</a>`;
 
     for (let i = 0; i < Object.keys(data.matches).length; i++) {
       var joueur1;
       var joueur2;
       if (data.matches[i].winner == "Draw") {
-        beginClassement = "Égalité de <a href='players/";
-        beginClassement += data.matches[i].white.name;
-        beginClassement += "'>";
-        beginClassement += data.matches[i].white.name;
-        beginClassement += "</a>";
+        beginClassement = "Égalité de ";
+        beginClassement += getPlayerLink(data.matches[i].white.name);
         console.log(joueur1);
-        beginClassement += " avec les blancs contre <a href='players/";
-        beginClassement += data.matches[i].black.name;
-        beginClassement += "'>";
-        beginClassement += data.matches[i].black.name;
-        beginClassement += "</a>";
+        beginClassement += " avec les blancs contre ";
+        beginClassement += getPlayerLink(data.matches[i].black.name);
       } else if ([data.matches[i].winner] != "Draw") {
         if (data.matches[i].winner == "white") {
-          beginClassement = "Victoire de <a href='players/";
-          beginClassement += data.matches[i].white.name;
-          beginClassement += "'>";
-          beginClassement += data.matches[i].white.name;
-          beginClassement += "</a> avec les blancs contre <a href='players/";
-          beginClassement += data.matches[i].black.name;
-          beginClassement += "'>";
-          beginClassement += data.matches[i].black.name;
-          beginClassement += "</a>";
+          beginClassement = "Victoire de ";
+          beginClassement += getPlayerLink(data.matches[i].white.name);
+          beginClassement += " avec les blancs contre ";
+          beginClassement += getPlayerLink(data.matches[i].black.name);
         } else {
-          beginClassement = "Victoire de <a href='players/";
-          beginClassement += data.matches[i].black.name;
-          beginClassement += "'>";
-          beginClassement += data.matches[i].black.name;
-          beginClassement += "</a> avec les noirs contre <a href='players/";
-          beginClassement += data.matches[i].white.name;
-          beginClassement += "'>";
-          beginClassement += data.matches[i].white.name;
-          beginClassement += "</a>";
+          beginClassement = "Victoire de ";
+          beginClassement += getPlayerLink(data.matches[i].black.name);
+          beginClassement += " avec les noirs contre ";
+          beginClassement += getPlayerLink(data.matches[i].white.name);
         }
       }
       beginClassement += " le ";

@@ -20,11 +20,13 @@ Promise.all([
     }
   }
 
-	const ratings = EloUtils.computeEloDeltas(
-		playersData.players,
-    matches,
-		{ kFactor: K_FACTOR }
-	).finalRatings;
+  // Recalculate Elo starting from default initial Elo for all players
+  // (ignore stored ratings in players.json to ensure consistent recomputation)
+  const ratings = EloUtils.computeEloDeltas(
+    [],
+      matches,
+    { kFactor: K_FACTOR }
+  ).finalRatings;
 
 	const sortedRatings = new Map(
     [...ratings.entries()]

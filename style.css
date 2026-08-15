@@ -41,3 +41,26 @@ body {
 .status-box {
   min-height: 3rem;
 }
+
+/* Stat pill for V/N/D */
+.stat-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.08rem 0.5rem;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  min-width: 2.2rem;
+  box-sizing: border-box;
+}
+.stat-pill.green { background: #198754; }
+.stat-pill.gray { background: #6c757d; }
+.stat-pill.red { background: #dc3545; }
+.stat-row { display: inline-flex; gap: 0.35rem; align-items: center; flex-wrap: wrap; }
+.color-square { width: 18px; height: 18px; display: inline-block; border-radius: 3px; margin-right: 8px; border: 1px solid #cfcfcf; }
+
+@media (max-width: 420px) {
+  .stat-pill { font-size: 0.72rem; padding: 0.06rem 0.36rem; min-width: 1.6rem; }
+}

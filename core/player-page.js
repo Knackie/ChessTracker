@@ -152,10 +152,13 @@ Promise.all([getJson(config.sources.matches), getJson(config.sources.players)])
     const allMatches = Array.isArray(matchesData.matches) ? matchesData.matches : [];
     const allPlayers = Array.isArray(playersData.players) ? playersData.players : [];
 
-    const eloDeltasByMatchIndex = EloUtils.computeEloDeltas(
+    const eloResult = EloUtils.computeEloDeltas(
       allPlayers,
-      allMatches
-    ).deltasByMatchIndex;
+      allMatches,
+      { kFactor: 20 }
+    );
+    const eloDeltasByMatchIndex = eloResult.deltasByMatchIndex;
+    const finalRatings = eloResult.finalRatings;
 
     const indexedPlayerMatches = allMatches
       .map((match, index) => ({ match, index }))
@@ -204,19 +207,68 @@ Promise.all([getJson(config.sources.matches), getJson(config.sources.players)])
 
     document.title = `♟️ Chess Tracker - ${playerName}`;
     document.getElementById("playerTitle").innerText = playerName;
-    document.getElementById("playerSubtitle").innerText = `${total.played} parties • ${total.won}V ${total.draw}N ${total.lost}D`;
+    const subtitleEl = document.getElementById("playerSubtitle");
+    if (subtitleEl) {
+      subtitleEl.innerHTML = `${total.played} parties • ` +
+        `<span class="d-inline-flex align-items-center gap-1 stat-row">` +
+        `<span class="stat-pill green" title="Victoires">${total.won}V</span>` +
+        `<span class="stat-pill gray" title="Nulles">${total.draw}N</span>` +
+        `<span class="stat-pill red" title="Défaites">${total.lost}D</span>` +
+        `</span>`;
+    }
 
     const summaryTarget = document.getElementById("playerSummary");
+    const computedElo = finalRatings && finalRatings.has(playerName) ? Math.round(finalRatings.get(playerName)) : (playerFromList ? Number(playerFromList.elo) : 'N/A');
     summaryTarget.innerHTML =
       renderSummaryCard("Parties", total.played) +
       renderSummaryCard("Score", total.score, `${scorePct}%`) +
       renderSummaryCard("Victoires", total.won) +
-      renderSummaryCard("Elo actuel", playerFromList ? playerFromList.elo : "N/A");
+      renderSummaryCard("Elo actuel", computedElo);
 
     const colorTarget = document.getElementById("statsByColor");
-    colorTarget.innerHTML =
-      renderSummaryCard("Blancs", asWhite.played, `${asWhite.won}V ${asWhite.draw}N ${asWhite.lost}D`) +
-      renderSummaryCard("Noirs", asBlack.played, `${asBlack.won}V ${asBlack.draw}N ${asBlack.lost}D`);
+    // Render color stats with colored squares and V/D/N badges
+    if (colorTarget) {
+      colorTarget.innerHTML = `
+        <div class="row g-3">
+          <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <span class="color-square" style="background:#ffffff;border-color:#cfcfcf"></span>
+                  <div>
+                    <div class="small text-muted">Blancs</div>
+                    <div class="h5 mb-0">${asWhite.played}</div>
+                  </div>
+                </div>
+                <div class="d-flex gap-1 stat-row">
+                  <span class="stat-pill green" title="Victoires">${asWhite.won}V</span>
+                  <span class="stat-pill gray" title="Nulles">${asWhite.draw}N</span>
+                  <span class="stat-pill red" title="Défaites">${asWhite.lost}D</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <span class="color-square" style="background:#000;border-color:#000"></span>
+                  <div>
+                    <div class="small text-muted">Noirs</div>
+                    <div class="h5 mb-0">${asBlack.played}</div>
+                  </div>
+                </div>
+                <div class="d-flex gap-1 stat-row">
+                  <span class="stat-pill green" title="Victoires">${asBlack.won}V</span>
+                  <span class="stat-pill gray" title="Nulles">${asBlack.draw}N</span>
+                  <span class="stat-pill red" title="Défaites">${asBlack.lost}D</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
 
     const openingEntries = [...openings.entries()].sort((a, b) => b[1].played - a[1].played);
     const opponentEntries = [...opponents.entries()].sort((a, b) => b[1].played - a[1].played);
@@ -238,6 +290,69 @@ Promise.all([getJson(config.sources.matches), getJson(config.sources.players)])
       recentMatches,
       eloDeltasByMatchIndex
     );
+
+    // Render Elo progression chart for this player
+    try {
+      const ordered = EloUtils.sortMatchesWithIndex(allMatches, 'asc');
+      const labels = [];
+      const values = [];
+      // determine starting Elo: take the 'before' value from the first match involving player
+      let startingElo = null;
+      for (const entry of ordered) {
+        const match = entry.match;
+        const idx = entry.index;
+        if (!match || !match.white || !match.black) continue;
+        if (match.white.name === playerName || match.black.name === playerName) {
+          const deltas = eloDeltasByMatchIndex.get(idx);
+          if (deltas) {
+            startingElo = match.white.name === playerName ? Math.round(deltas.whiteBefore) : Math.round(deltas.blackBefore);
+            break;
+          }
+        }
+      }
+      if (startingElo === null) {
+        startingElo = playerFromList ? Number(playerFromList.elo) : 1399;
+      }
+
+      labels.push('Début');
+      values.push(Math.round(startingElo));
+
+      ordered.forEach((entry) => {
+        const match = entry.match;
+        const idx = entry.index;
+        if (!match || !match.white || !match.black) return;
+        if (match.white.name === playerName || match.black.name === playerName) {
+          const deltas = eloDeltasByMatchIndex.get(idx);
+          if (deltas) {
+            const after = match.white.name === playerName ? deltas.whiteAfter : deltas.blackAfter;
+            labels.push(match.date || '—');
+            values.push(Math.round(after));
+          }
+        }
+      });
+
+      const ctx = document.getElementById('eloChart');
+      if (ctx) {
+        if (window.Chart) {
+          const cfg = {
+            type: 'line',
+            data: { labels, datasets: [{ label: 'Elo', data: values, borderColor: '#0d6efd', backgroundColor: 'rgba(13,110,253,0.1)', tension: 0.2, fill: true, pointRadius: 3 }] },
+            options: { scales: { y: { beginAtZero: false } }, plugins: { legend: { display: false } } }
+          };
+          // clean previous canvas if chart exists
+          if (ctx._chartInstance) {
+            ctx._chartInstance.destroy();
+            ctx._chartInstance = null;
+          }
+          ctx._chartInstance = new Chart(ctx.getContext('2d'), cfg);
+        } else {
+          ctx.parentElement.innerHTML = '<div class="text-muted">Chart.js non chargé.</div>';
+        }
+      }
+    } catch (e) {
+      // ignore chart errors
+      console.warn('Elo chart error', e);
+    }
   })
   .catch((error) => {
     const title = document.getElementById("playerTitle");

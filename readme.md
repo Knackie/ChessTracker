@@ -85,7 +85,6 @@ Note: les donnees sont lues depuis des JSON heberges sur GitHub (`raw.githubuser
 	 |- historique.js
 	 |- player-page.js
 	 |- player-details.js
-	 |- player-details-elo.js
 	 |- add-match.js
 	 |- elo-utils.js
 ```

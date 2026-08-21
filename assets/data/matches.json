@@ -33,6 +33,13 @@
       "winner": "black",
       "date": "17/08",
       "opening": "Défense Scandinave"
+      },
+       {
+      "white": { "name": "Fred" },
+      "black": { "name": "Claude" },
+      "winner": "white",
+      "date": "21/08",
+      "opening": "Four knight"
       }
   ]
 }

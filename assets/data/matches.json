@@ -40,6 +40,13 @@
       "winner": "white",
       "date": "21/08",
       "opening": "Four knight"
+      },
+        {
+      "white": { "name": "Claude" },
+      "black": { "name": "Mathieu" },
+      "winner": "black",
+      "date": "25/08",
+      "opening": "e4d5e5"
       }
   ]
 }

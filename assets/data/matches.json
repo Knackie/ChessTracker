@@ -47,6 +47,13 @@
       "winner": "black",
       "date": "25/08",
       "opening": "e4d5e5"
+      },
+ {
+      "black": { "name": "Fred" },
+      "white": { "name": "Mathieu" },
+      "winner": "white",
+      "date": "26/08",
+      "opening": "Caro-Kann"
       }
   ]
 }

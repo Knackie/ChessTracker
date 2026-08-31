@@ -54,6 +54,13 @@
       "winner": "white",
       "date": "26/08",
       "opening": "Caro-Kann"
+      },
+        {
+      "black": { "name": "Mathieu" },
+      "white": { "name": "Claude" },
+      "winner": "black",
+      "date": "31/08",
+      "opening": "Défense Scandinave"
       }
   ]
 }
